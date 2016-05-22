@@ -1,0 +1,38 @@
+{
+  "name": "star-wars-react",
+  "version": "1.0.0",
+  "description": "Star Wars connection site using React.js and SWAPI (star wars API)",
+  "main": "index.js",
+  "devDependencies": {
+    "babel-core": "5.8.*",
+    "bootstrap": "^3.3.6",
+    "babel-loader": "5.3.*",
+    "webpack": "1.12.*"
+  },
+  "scripts": {
+    "start": "watchify src/main.jsx -v -t [ babelify --presets [ react ] ] -o ./js/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caraclarke/star-wars-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caraclarke/star-wars-react/issues"
+  },
+  "homepage": "https://github.com/caraclarke/star-wars-react#readme",
+  "dependencies": {
+      "babel-preset-react": "^6.3.13",
+      "babelify": "^7.2.0",
+      "email-validator": "^1.0.4",
+      "react": "^0.14.6",
+      "react-dom": "^0.14.6",
+      "react-router": "^2.0.0",
+      "reflux": "^0.4.0",
+      "watchify": "^3.7.0",
+      "webpack-dev-server": "^1.14.1",
+      "whatwg-fetch": "^0.11.0"
+    }
+  }
+
