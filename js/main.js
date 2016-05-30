@@ -19108,7 +19108,24 @@ var App = React.createClass({
       React.createElement(
         'div',
         { className: 'container' },
-        React.createElement(PlanetBase, null)
+        React.createElement(
+          'h1',
+          null,
+          'Click on an icon to explore the Star Wars Universe'
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-sm-12' },
+          React.createElement(
+            'div',
+            { className: 'col-md-4 col-sm-12' },
+            React.createElement(
+              'ul',
+              null,
+              createLinkItem
+            )
+          )
+        )
       )
     );
   }

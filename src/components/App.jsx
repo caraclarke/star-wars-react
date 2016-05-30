@@ -48,7 +48,15 @@ var App = React.createClass({
         </nav>
 
         <div className="container">
-          <PlanetBase />
+          <h1>Click on an icon to explore the Star Wars Universe</h1>
+
+          <div className="col-sm-12">
+            <div className="col-md-4 col-sm-12">
+              <ul>
+                {createLinkItem}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     )
