@@ -5,3 +5,7 @@
 .hideProps {
   display: none;
 }
+
+#planetBase {
+  display: none;
+}
