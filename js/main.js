@@ -19039,26 +19039,339 @@ process.umask = function() { return 0; };
 
 },{}],159:[function(require,module,exports){
 var React = require('react');
+var NavItem = require('./Nav/NavItem.jsx');
+var PlanetBase = require('./Planets/PlanetBase.jsx');
 
 var App = React.createClass({
   displayName: 'App',
 
+
+  getInitialState: function () {
+    return {
+      subjectFilter: '',
+      navLinks: ['Films', 'People', 'Planets', 'Species', 'Starships', 'Vehicles']
+    };
+  },
+
+  // set state in basePage of alphId
+  handleChildClick: function (event) {
+
+    this.setState({ subjectFilter: subjectFilter });
+
+    console.log(subjectFilter);
+  },
+
+  // click Index title to get rid of subjectFilter and reset it to showing all options
+  resetAllTerms: function (event) {
+    subjectFilter = '';
+  },
+
   render: function () {
+
+    // map navLinks, return <NavItem /> to be rendered
+    var createLinkItem = this.state.navLinks.map(function (item, subjectFilter, index) {
+      return React.createElement(NavItem, { onValueChange: this.handleChildClick, key: item + index, id: item, title: item });
+    }.bind(this));
+
     return React.createElement(
-      'h1',
+      'div',
       null,
-      'hey'
+      React.createElement(
+        'nav',
+        { className: 'navbar navbar-default navbar-fixed-top' },
+        React.createElement(
+          'div',
+          { className: 'navbar-header' },
+          React.createElement(
+            'button',
+            { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#nav-collapse' },
+            React.createElement('span', { className: 'icon-bar' }),
+            React.createElement('span', { className: 'icon-bar' }),
+            React.createElement('span', { className: 'icon-bar' })
+          ),
+          React.createElement(
+            'a',
+            { className: 'navbar-brand', onClick: this.resetAllTerms },
+            'Star Wars Connections'
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'collapse navbar-collapse', id: 'nav-collapse' },
+          React.createElement(
+            'ul',
+            { className: 'nav navbar-nav' },
+            createLinkItem
+          )
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'container' },
+        React.createElement(PlanetBase, null)
+      )
     );
   }
 });
 
 module.exports = App;
 
-},{"react":157}],160:[function(require,module,exports){
+},{"./Nav/NavItem.jsx":160,"./Planets/PlanetBase.jsx":162,"react":157}],160:[function(require,module,exports){
+var React = require('react');
+
+var NavItem = React.createClass({
+  displayName: "NavItem",
+
+
+  getInitialState: function () {
+    return { hover: false };
+  },
+
+  // mouseOver and mouseOut changing state of hover to change style
+  mouseOver: function (e) {
+    this.setState({ hover: true });
+  },
+
+  mouseOut: function (e) {
+    this.setState({ hover: false });
+  },
+
+  // click handler to pass subjectFilter up to App to filter section
+  handleChange: function (e) {
+    subjectFilter = this.props.id;
+    this.props.onValueChange(subjectFilter);
+  },
+
+  render: function () {
+    return React.createElement(
+      "li",
+      { onClick: this.handleChange, className: this.state.hover ? "active" : "", onMouseOver: this.mouseOver, onMouseOut: this.mouseOut },
+      React.createElement(
+        "a",
+        { style: this.props.aStyle, id: this.props.id },
+        this.props.title
+      )
+    );
+  }
+});
+
+module.exports = NavItem;
+
+},{"react":157}],161:[function(require,module,exports){
+var React = require('react');
+
+var Planet = React.createClass({
+  displayName: 'Planet',
+
+
+  getInitialState: function () {
+    return { newPlanetUrl: '' };
+  },
+
+  componentWillMount: function () {
+    var url = document.createElement('a');
+    url.href = this.props.url;
+    url.pathname = url.pathname.replace(/(\/api\/)/, '');
+    this.setState({ newPlanetUrl: url.pathname });
+  },
+
+  onClick: function (e) {
+    e.preventDefault;
+
+    this.setState({ displayProps: true });
+  },
+
+  //TODO:
+  // residents
+  // films
+  // fix clicking (only one can be clicked at once so it stops fucking up styling)
+  // fix layout
+  // maybe all possible planets listed on side and when clicked the display comes up on other side of page
+
+  render: function () {
+
+    return React.createElement(
+      'div',
+      { className: 'col-md-4' },
+      React.createElement(
+        'h3',
+        null,
+        this.props.name
+      ),
+      React.createElement(
+        'a',
+        { href: '#' },
+        'Show Planet Details'
+      ),
+      React.createElement(
+        'div',
+        { className: this.state.displayProps ? "" : "hideProps" },
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Diameter:'
+          ),
+          ' ',
+          this.props.diameter
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Rotation Period:'
+          ),
+          ' ',
+          this.props.rotation_period
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Orbital Period:'
+          ),
+          ' ',
+          this.props.orbital_period
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Gravity:'
+          ),
+          ' ',
+          this.props.gravity
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Population:'
+          ),
+          ' ',
+          this.props.population
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Climate:'
+          ),
+          ' ',
+          this.props.climate
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Terrain:'
+          ),
+          ' ',
+          this.props.terrain
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Surface Water:'
+          ),
+          ' ',
+          this.props.surface_water
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = Planet;
+
+},{"react":157}],162:[function(require,module,exports){
+var React = require('react');
+var Planet = require('./Planet.jsx');
+
+var PlanetBase = React.createClass({
+  displayName: 'PlanetBase',
+
+
+  getInitialState: function () {
+    return { planets: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/planets/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to planets array recieved from SWAPI
+        this.setState({ planets: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    var url = document.createElement('a');
+    url.href = this.props.url;
+    url.pathname = url.pathname.replace(/(\/api\/)/, '');
+    this.setState({ newPlanetUrl: url.pathname });
+  },
+
+  render: function () {
+
+    // map planets array to get name and URL to link to individual pages
+    var createPlanetItem = this.state.planets.map(function (item, index) {
+      return React.createElement(Planet, {
+        key: item.name + index,
+        id: item.id,
+        name: item.name,
+        url: item.url,
+        diameter: item.diameter,
+        rotation_period: item.rotation_period,
+        orbital_period: item.orbital_period,
+        gravity: item.gravity,
+        population: item.population,
+        climate: item.climate,
+        terrain: item.terrain,
+        surface_water: item.surface_water
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createPlanetItem
+    );
+  }
+
+});
+
+module.exports = PlanetBase;
+
+},{"./Planet.jsx":161,"react":157}],163:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[160]);
+},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[163]);
