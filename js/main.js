@@ -19061,17 +19061,18 @@ var App = React.createClass({
     switch (subjectFilter) {
       case 'Planets':
         $('.hideList').css('display', 'none');
-        $('#planetBase').css('display', 'block');
+        $('#PlanetsComp').removeClass('hidden');
         break;
     }
   },
 
   // click Index title to get rid of subjectFilter and reset it to showing all options
   resetAllTerms: function (event) {
+    var newId = '#' + subjectFilter + 'Comp';
     subjectFilter = '';
-    // console.log(subjectFilter);
-    // $('.subjects').css('display', 'none');
-    // $('.hideList').css('display', 'block');
+
+    $(newId).addClass('hidden');
+    $('.hideList').css('display', 'block');
   },
 
   render: function () {
@@ -19123,7 +19124,7 @@ var App = React.createClass({
         ),
         React.createElement(
           'div',
-          { id: 'changeMe', className: 'col-sm-12' },
+          { className: 'col-sm-12' },
           React.createElement(
             'div',
             { className: 'col-md-4 col-sm-12 hideList' },
@@ -19138,7 +19139,7 @@ var App = React.createClass({
             { className: 'subjects' },
             React.createElement(
               'div',
-              { id: 'planetBase' },
+              { id: 'PlanetsComp', className: 'hidden' },
               React.createElement(PlanetBase, null)
             )
           )

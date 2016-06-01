@@ -19,17 +19,18 @@ var App = React.createClass({
     switch(subjectFilter) {
       case 'Planets':
         $('.hideList').css('display', 'none');
-        $('#planetBase').css('display', 'block');
+        $('#PlanetsComp').removeClass('hidden');
         break;
     }
   },
 
   // click Index title to get rid of subjectFilter and reset it to showing all options
   resetAllTerms: function(event) {
+    var newId = '#' + subjectFilter + 'Comp';
     subjectFilter = '';
-    // console.log(subjectFilter);
-    // $('.subjects').css('display', 'none');
-    // $('.hideList').css('display', 'block');
+
+    $(newId).addClass('hidden');
+    $('.hideList').css('display', 'block');
   },
 
   render: function() {
@@ -58,7 +59,7 @@ var App = React.createClass({
         <div className="container">
           <h1>Click on an icon to explore the Star Wars Universe</h1>
 
-          <div id="changeMe" className="col-sm-12">
+          <div className="col-sm-12">
             <div className="col-md-4 col-sm-12 hideList">
               <ul>
                 {createLinkItem}
@@ -66,7 +67,7 @@ var App = React.createClass({
             </div>
 
             <div className="subjects">
-              <div id="planetBase">
+              <div id="PlanetsComp" className="hidden">
                 <PlanetBase />
               </div>
             </div>
