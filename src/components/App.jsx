@@ -24,6 +24,12 @@ var App = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    $('html').click(function() {
+        $('.compProps').addClass('hidden');
+    });
+  },
+
   // click Index title to get rid of subjectFilter and reset it to showing all options
   resetAllTerms: function(event) {
     var newId = '#' + subjectFilter + 'Comp';

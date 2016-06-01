@@ -19066,6 +19066,12 @@ var App = React.createClass({
     }
   },
 
+  componentDidMount: function () {
+    $('html').click(function () {
+      $('.compProps').addClass('hidden');
+    });
+  },
+
   // click Index title to get rid of subjectFilter and reset it to showing all options
   resetAllTerms: function (event) {
     var newId = '#' + subjectFilter + 'Comp';
@@ -19227,7 +19233,7 @@ var Planet = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-6' },
       React.createElement(
         'div',
         { className: 'col-md-4' },
@@ -19239,7 +19245,7 @@ var Planet = React.createClass({
         React.createElement(
           'a',
           { href: '#', onClick: this.onClick },
-          'Show Planet Details'
+          'Show Details'
         )
       ),
       React.createElement(
@@ -19247,7 +19253,7 @@ var Planet = React.createClass({
         { style: propsStyle, className: 'col-md-8' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden compProps' },
           React.createElement(
             'p',
             null,

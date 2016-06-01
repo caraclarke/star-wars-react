@@ -29,14 +29,14 @@ var Planet = React.createClass({
     };
 
     return (
-      <div className="col-sm-12">
+      <div className="col-sm-6">
         <div className="col-md-4">
           <h3>{this.props.name}</h3>
-          <a href='#' onClick={this.onClick}>Show Planet Details</a>
+          <a href='#' onClick={this.onClick}>Show Details</a>
         </div>
 
         <div style={propsStyle} className="col-md-8">
-          <div id={this.props.id} className="hidden">
+          <div id={this.props.id} className="hidden compProps">
             <p><strong>Diameter:</strong> {this.props.diameter}</p>
             <p><strong>Rotation Period:</strong> {this.props.rotation_period}</p>
             <p><strong>Orbital Period:</strong> {this.props.orbital_period}</p>
