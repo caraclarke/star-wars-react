@@ -19210,18 +19210,14 @@ var Planet = React.createClass({
     this.setState({ newPlanetUrl: url.pathname });
   },
 
-  onClick: function (e) {
-    e.preventDefault;
+  onClick: function (event) {
+    event.stopPropagation();
 
-    this.setState({ displayProps: true });
+    // toggle hideMe class
+    // responsible for showing/hiding extra information on planets
+    // hideMe is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
   },
-
-  //TODO:
-  // residents
-  // films
-  // fix clicking (only one can be clicked at once so it stops fucking up styling)
-  // fix layout
-  // maybe all possible planets listed on side and when clicked the display comes up on other side of page
 
   render: function () {
 
@@ -19235,12 +19231,12 @@ var Planet = React.createClass({
       ),
       React.createElement(
         'a',
-        { href: '#' },
+        { href: '#', onClick: this.onClick },
         'Show Planet Details'
       ),
       React.createElement(
         'div',
-        { className: this.state.displayProps ? "" : "hideProps" },
+        { id: this.props.id, className: 'hidden' },
         React.createElement(
           'p',
           null,
@@ -19375,9 +19371,12 @@ var PlanetBase = React.createClass({
 
     // map planets array to get name and URL to link to individual pages
     var createPlanetItem = this.state.planets.map(function (item, index) {
+
+      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
       return React.createElement(Planet, {
         key: item.name + index,
-        id: item.id,
+        id: newTextId,
         name: item.name,
         url: item.url,
         diameter: item.diameter,

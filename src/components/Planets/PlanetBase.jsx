@@ -34,9 +34,12 @@ var PlanetBase = React.createClass({
 
     // map planets array to get name and URL to link to individual pages
       var createPlanetItem = this.state.planets.map(function(item, index) {
+
+        var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
         return <Planet
           key={item.name + index}
-          id={item.id}
+          id={newTextId}
           name={item.name}
           url={item.url}
           diameter={item.diameter}

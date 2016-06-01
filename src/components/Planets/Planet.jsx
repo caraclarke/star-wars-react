@@ -13,27 +13,23 @@ var Planet = React.createClass({
     this.setState({ newPlanetUrl: url.pathname });
   },
 
-  onClick: function(e) {
-    e.preventDefault;
+  onClick: function(event) {
+    event.stopPropagation();
 
-    this.setState({ displayProps: true })
+    // toggle hideMe class
+    // responsible for showing/hiding extra information on planets
+    // hideMe is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
   },
-
-  //TODO:
-    // residents
-    // films
-    // fix clicking (only one can be clicked at once so it stops fucking up styling)
-    // fix layout
-    // maybe all possible planets listed on side and when clicked the display comes up on other side of page
 
   render: function() {
 
     return (
       <div className="col-md-4">
         <h3>{this.props.name}</h3>
-        <a href='#'>Show Planet Details</a>
+        <a href='#' onClick={this.onClick}>Show Planet Details</a>
 
-        <div className={this.state.displayProps ? "" : "hideProps"}>
+        <div id={this.props.id} className="hidden">
           <p><strong>Diameter:</strong> {this.props.diameter}</p>
           <p><strong>Rotation Period:</strong> {this.props.rotation_period}</p>
           <p><strong>Orbital Period:</strong> {this.props.orbital_period}</p>
