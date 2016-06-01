@@ -2,23 +2,12 @@ var React = require('react');
 
 var Planet = React.createClass({
 
-  getInitialState: function() {
-    return { newPlanetUrl: '' }
-  },
-
-  componentWillMount: function() {
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
-  },
-
   onClick: function(event) {
     event.stopPropagation();
 
-    // toggle hideMe class
+    // toggle hidden class
     // responsible for showing/hiding extra information on planets
-    // hideMe is in main_style.css sheet in public folder
+    // hidden is in main_style.css sheet in public folder
     $('#' + this.props.id).toggleClass('hidden');
   },
 
