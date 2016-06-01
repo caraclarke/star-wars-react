@@ -30,7 +30,7 @@ var Starship = React.createClass({
             <p><strong>Starship Class:</strong> {this.props.starship_class}</p>
             <p><strong>Cost in Credits:</strong> {this.props.cost_in_credits}</p>
             <p><strong>Length:</strong> {this.props.length}</p>
-            <p><strong>Passengers:</strong> {this.props.passengers}</p>
+            <p><strong>Passenger Size:</strong> {this.props.passengers}</p>
             <p><strong>Max Atmosphering Speed:</strong> {this.props.max_atmosphering_speed}</p>
             <p><strong>Hyperdrive Rating:</strong> {this.props.hyperdrive_rating}</p>
             <p><strong>MGLT:</strong> {this.props.MGLT}</p>

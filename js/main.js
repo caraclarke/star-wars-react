@@ -19040,7 +19040,12 @@ process.umask = function() { return 0; };
 },{}],159:[function(require,module,exports){
 var React = require('react');
 var NavItem = require('./Nav/NavItem.jsx');
+var FilmBase = require('./Films/FilmBase.jsx');
+var PeopleBase = require('./People/PeopleBase.jsx');
 var PlanetBase = require('./Planets/PlanetBase.jsx');
+var SpeciesBase = require('./Species/SpeciesBase.jsx');
+var StarshipBase = require('./Starships/StarshipBase.jsx');
+var VehicleBase = require('./Vehicles/VehicleBase.jsx');
 
 var App = React.createClass({
   displayName: 'App',
@@ -19056,12 +19061,27 @@ var App = React.createClass({
   // set state in basePage of alphId
   handleChildClick: function (event) {
 
+    $('.hideList').css('display', 'none');
     this.setState({ subjectFilter: subjectFilter });
 
     switch (subjectFilter) {
+      case 'Films':
+        $('#FilmsComp').removeClass('hidden');
+        break;
+      case 'People':
+        $('#PeopleComp').removeClass('hidden');
+        break;
       case 'Planets':
-        $('.hideList').css('display', 'none');
         $('#PlanetsComp').removeClass('hidden');
+        break;
+      case 'Species':
+        $('#SpeciesComp').removeClass('hidden');
+        break;
+      case 'Starships':
+        $('#StarshipsComp').removeClass('hidden');
+        break;
+      case 'Vehicles':
+        $('#VehiclesComp').removeClass('hidden');
         break;
     }
   },
@@ -19145,8 +19165,33 @@ var App = React.createClass({
             { className: 'subjects' },
             React.createElement(
               'div',
+              { id: 'FilmsComp', className: 'hidden' },
+              React.createElement(FilmBase, null)
+            ),
+            React.createElement(
+              'div',
+              { id: 'PeopleComp', className: 'hidden' },
+              React.createElement(PeopleBase, null)
+            ),
+            React.createElement(
+              'div',
               { id: 'PlanetsComp', className: 'hidden' },
               React.createElement(PlanetBase, null)
+            ),
+            React.createElement(
+              'div',
+              { id: 'SpeciesComp', className: 'hidden' },
+              React.createElement(SpeciesBase, null)
+            ),
+            React.createElement(
+              'div',
+              { id: 'StarshipsComp', className: 'hidden' },
+              React.createElement(StarshipBase, null)
+            ),
+            React.createElement(
+              'div',
+              { id: 'VehiclesComp', className: 'hidden' },
+              React.createElement(VehicleBase, null)
             )
           )
         )
@@ -19157,7 +19202,181 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./Nav/NavItem.jsx":160,"./Planets/PlanetBase.jsx":162,"react":157}],160:[function(require,module,exports){
+},{"./Films/FilmBase.jsx":161,"./Nav/NavItem.jsx":162,"./People/PeopleBase.jsx":164,"./Planets/PlanetBase.jsx":166,"./Species/SpeciesBase.jsx":168,"./Starships/StarshipBase.jsx":170,"./Vehicles/VehicleBase.jsx":172,"react":157}],160:[function(require,module,exports){
+var React = require('react');
+
+var Film = React.createClass({
+  displayName: 'Film',
+
+
+  onClick: function (event) {
+    event.stopPropagation();
+
+    // toggle hidden class
+    // responsible for showing/hiding extra information on planets
+    // hidden is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
+  },
+
+  render: function () {
+
+    var propsStyle = {
+      marginTop: 25
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'col-sm-6' },
+      React.createElement(
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.title
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Details'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: propsStyle, className: 'col-md-8' },
+        React.createElement(
+          'div',
+          { id: this.props.id, className: 'hidden compProps' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Episode Id:'
+            ),
+            ' ',
+            this.props.episode_id
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Opening Crawl:'
+            ),
+            ' ',
+            this.props.opening_crawl
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Director:'
+            ),
+            ' ',
+            this.props.director
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Producer(s):'
+            ),
+            ' ',
+            this.props.producer
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Release Date:'
+            ),
+            ' ',
+            this.props.release_date
+          )
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = Film;
+
+},{"react":157}],161:[function(require,module,exports){
+var React = require('react');
+var Film = require('./Film.jsx');
+
+var FilmBase = React.createClass({
+  displayName: 'FilmBase',
+
+
+  getInitialState: function () {
+    return { films: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/films/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to films array recieved from SWAPI
+        this.setState({ films: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  render: function () {
+
+    // map films array to get name and URL to link to individual pages
+    var createFilmItem = this.state.films.map(function (item, index) {
+
+      var newTextId = item.title.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
+      return React.createElement(Film, {
+        key: item.title + index,
+        id: newTextId,
+        title: item.title,
+        url: item.url,
+        episode_id: item.episode_id,
+        opening_crawl: item.opening_crawl,
+        director: item.director,
+        producer: item.producer,
+        release_date: item.release_date,
+        species: item.species,
+        starships: item.starships,
+        vehicles: item.vehicles,
+        characters: item.characters,
+        planets: item.planets
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createFilmItem
+    );
+  }
+
+});
+
+module.exports = FilmBase;
+
+},{"./Film.jsx":160,"react":157}],162:[function(require,module,exports){
 var React = require('react');
 
 var NavItem = React.createClass({
@@ -19198,30 +19417,204 @@ var NavItem = React.createClass({
 
 module.exports = NavItem;
 
-},{"react":157}],161:[function(require,module,exports){
+},{"react":157}],163:[function(require,module,exports){
+var React = require('react');
+
+var People = React.createClass({
+  displayName: 'People',
+
+
+  onClick: function (event) {
+    event.stopPropagation();
+
+    // toggle hidden class
+    // responsible for showing/hiding extra information on planets
+    // hidden is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
+  },
+
+  render: function () {
+
+    var propsStyle = {
+      marginTop: 25
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'col-sm-6' },
+      React.createElement(
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.name
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Details'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: propsStyle, className: 'col-md-8' },
+        React.createElement(
+          'div',
+          { id: this.props.id, className: 'hidden compProps' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Birth Year::'
+            ),
+            ' ',
+            this.props.birth_year
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Eye Color::'
+            ),
+            ' ',
+            this.props.eye_color
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Gender:'
+            ),
+            ' ',
+            this.props.gender
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Hair Color:'
+            ),
+            ' ',
+            this.props.hair_color
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Height:'
+            ),
+            ' ',
+            this.props.height
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Skin Color:'
+            ),
+            ' ',
+            this.props.skin_color
+          )
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = People;
+
+},{"react":157}],164:[function(require,module,exports){
+var React = require('react');
+var People = require('./People.jsx');
+
+var PeopleBase = React.createClass({
+  displayName: 'PeopleBase',
+
+
+  getInitialState: function () {
+    return { people: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/people/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to people array recieved from SWAPI
+        this.setState({ people: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  render: function () {
+
+    // map people array to get name and URL to link to individual pages
+    var createPersonItem = this.state.people.map(function (item, index) {
+
+      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
+      return React.createElement(People, {
+        key: item.name + index,
+        id: newTextId,
+        name: item.name,
+        url: item.url,
+        birth_year: item.birth_year,
+        gender: item.gender,
+        eye_color: item.eye_color,
+        hair_color: item.hair_color,
+        height: item.height,
+        skin_color: item.skin_color,
+        homeworld: item.homeworld,
+        films: item.films,
+        species: item.species,
+        vehicles: item.vehicles
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createPersonItem
+    );
+  }
+
+});
+
+module.exports = PeopleBase;
+
+},{"./People.jsx":163,"react":157}],165:[function(require,module,exports){
 var React = require('react');
 
 var Planet = React.createClass({
   displayName: 'Planet',
 
 
-  getInitialState: function () {
-    return { newPlanetUrl: '' };
-  },
-
-  componentWillMount: function () {
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
-  },
-
   onClick: function (event) {
     event.stopPropagation();
 
-    // toggle hideMe class
+    // toggle hidden class
     // responsible for showing/hiding extra information on planets
-    // hideMe is in main_style.css sheet in public folder
+    // hidden is in main_style.css sheet in public folder
     $('#' + this.props.id).toggleClass('hidden');
   },
 
@@ -19351,7 +19744,7 @@ var Planet = React.createClass({
 
 module.exports = Planet;
 
-},{"react":157}],162:[function(require,module,exports){
+},{"react":157}],166:[function(require,module,exports){
 var React = require('react');
 var Planet = require('./Planet.jsx');
 
@@ -19378,11 +19771,6 @@ var PlanetBase = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
   },
 
   render: function () {
@@ -19419,11 +19807,681 @@ var PlanetBase = React.createClass({
 
 module.exports = PlanetBase;
 
-},{"./Planet.jsx":161,"react":157}],163:[function(require,module,exports){
+},{"./Planet.jsx":165,"react":157}],167:[function(require,module,exports){
+var React = require('react');
+
+var Species = React.createClass({
+  displayName: 'Species',
+
+
+  onClick: function (event) {
+    event.stopPropagation();
+
+    // toggle hidden class
+    // responsible for showing/hiding extra information on planets
+    // hidden is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
+  },
+
+  render: function () {
+
+    var propsStyle = {
+      marginTop: 25
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'col-sm-6' },
+      React.createElement(
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.name
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Details'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: propsStyle, className: 'col-md-8' },
+        React.createElement(
+          'div',
+          { id: this.props.id, className: 'hidden compProps' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Classification:'
+            ),
+            ' ',
+            this.props.classification
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Designation:'
+            ),
+            ' ',
+            this.props.designation
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Average Height::'
+            ),
+            ' ',
+            this.props.average_height
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Eye Color(s):'
+            ),
+            ' ',
+            this.props.eye_colors
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Hair Color(s):'
+            ),
+            ' ',
+            this.props.hair_colors
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Skin Color(s):'
+            ),
+            ' ',
+            this.props.skin_colors
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Language:'
+            ),
+            ' ',
+            this.props.language
+          )
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = Species;
+
+},{"react":157}],168:[function(require,module,exports){
+var React = require('react');
+var Species = require('./Species.jsx');
+
+var SpeciesBase = React.createClass({
+  displayName: 'SpeciesBase',
+
+
+  getInitialState: function () {
+    return { species: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/species/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to species array recieved from SWAPI
+        this.setState({ species: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    var url = document.createElement('a');
+    url.href = this.props.url;
+    url.pathname = url.pathname.replace(/(\/api\/)/, '');
+    this.setState({ newPlanetUrl: url.pathname });
+  },
+
+  render: function () {
+
+    // map species array to get name and URL to link to individual pages
+    var createSpeciesItem = this.state.species.map(function (item, index) {
+
+      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
+      return React.createElement(Species, {
+        key: item.name + index,
+        id: newTextId,
+        name: item.name,
+        url: item.url,
+        classification: item.classification,
+        designation: item.designation,
+        average_height: item.average_height,
+        eye_colors: item.eye_colors,
+        hair_colors: item.hair_colors,
+        skin_colors: item.skin_colors,
+        language: item.language,
+        homeworld: item.homeworld,
+        people: item.people,
+        films: item.films
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createSpeciesItem
+    );
+  }
+
+});
+
+module.exports = SpeciesBase;
+
+},{"./Species.jsx":167,"react":157}],169:[function(require,module,exports){
+var React = require('react');
+
+var Starship = React.createClass({
+  displayName: 'Starship',
+
+
+  onClick: function (event) {
+    event.stopPropagation();
+
+    // toggle hidden class
+    // responsible for showing/hiding extra information on planets
+    // hidden is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
+  },
+
+  render: function () {
+
+    var propsStyle = {
+      marginTop: 25
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'col-sm-6' },
+      React.createElement(
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.name
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Details'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: propsStyle, className: 'col-md-8' },
+        React.createElement(
+          'div',
+          { id: this.props.id, className: 'hidden compProps' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Model:'
+            ),
+            ' ',
+            this.props.model
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Starship Class:'
+            ),
+            ' ',
+            this.props.starship_class
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Cost in Credits:'
+            ),
+            ' ',
+            this.props.cost_in_credits
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Length:'
+            ),
+            ' ',
+            this.props.length
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Passenger Size:'
+            ),
+            ' ',
+            this.props.passengers
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Max Atmosphering Speed:'
+            ),
+            ' ',
+            this.props.max_atmosphering_speed
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Hyperdrive Rating:'
+            ),
+            ' ',
+            this.props.hyperdrive_rating
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'MGLT:'
+            ),
+            ' ',
+            this.props.MGLT
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Cargo Capacity:'
+            ),
+            ' ',
+            this.props.cargo_capacity
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Consumables:'
+            ),
+            ' ',
+            this.props.consumables
+          )
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = Starship;
+
+},{"react":157}],170:[function(require,module,exports){
+var React = require('react');
+var Starship = require('./Starship.jsx');
+
+var StarshipBase = React.createClass({
+  displayName: 'StarshipBase',
+
+
+  getInitialState: function () {
+    return { starships: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/starships/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to starships array recieved from SWAPI
+        this.setState({ starships: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    var url = document.createElement('a');
+    url.href = this.props.url;
+    url.pathname = url.pathname.replace(/(\/api\/)/, '');
+    this.setState({ newPlanetUrl: url.pathname });
+  },
+
+  render: function () {
+
+    // map starships array to get name and URL to link to individual pages
+    var createStarshipItem = this.state.starships.map(function (item, index) {
+
+      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
+      return React.createElement(Starship, {
+        key: item.name + index,
+        id: newTextId,
+        name: item.name,
+        url: item.url,
+        model: item.model,
+        starship_class: item.starship_class,
+        cost_in_credits: item.cost_in_credits,
+        length: item.length,
+        crew: item.crew,
+        passengers: item.passengers,
+        max_atmosphering_speed: item.max_atmosphering_speed,
+        MGLT: item.MGLT,
+        cargo_capacity: item.cargo_capacity,
+        consumables: item.consumables,
+        films: item.films,
+        pilots: item.pilots,
+        hyperdrive_rating: item.hyperdrive_rating
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createStarshipItem
+    );
+  }
+
+});
+
+module.exports = StarshipBase;
+
+},{"./Starship.jsx":169,"react":157}],171:[function(require,module,exports){
+var React = require('react');
+
+var Vehicle = React.createClass({
+  displayName: 'Vehicle',
+
+
+  onClick: function (event) {
+    event.stopPropagation();
+
+    // toggle hidden class
+    // responsible for showing/hiding extra information on planets
+    // hidden is in main_style.css sheet in public folder
+    $('#' + this.props.id).toggleClass('hidden');
+  },
+
+  render: function () {
+
+    var propsStyle = {
+      marginTop: 25
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'col-sm-6' },
+      React.createElement(
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.name
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Details'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: propsStyle, className: 'col-md-8' },
+        React.createElement(
+          'div',
+          { id: this.props.id, className: 'hidden compProps' },
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Model:'
+            ),
+            ' ',
+            this.props.model
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Vehicle Class:'
+            ),
+            ' ',
+            this.props.vehicle_class
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Manufacturer:'
+            ),
+            ' ',
+            this.props.manufacturer
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Length:'
+            ),
+            ' ',
+            this.props.length
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Cost in Credits:'
+            ),
+            ' ',
+            this.props.cost_in_credits
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Crew Size:'
+            ),
+            ' ',
+            this.props.crew_size
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Passenger Size:'
+            ),
+            ' ',
+            this.props.passengers
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Max Atmosphering Speed:'
+            ),
+            ' ',
+            this.props.max_atmosphering_speed
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Cargo Capacity:'
+            ),
+            ' ',
+            this.props.cargo_capacity
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Consumables:'
+            ),
+            ' ',
+            this.props.consumables
+          )
+        )
+      )
+    );
+  }
+
+});
+
+module.exports = Vehicle;
+
+},{"react":157}],172:[function(require,module,exports){
+var React = require('react');
+var Vehicle = require('./Vehicle.jsx');
+
+var VehiclesBase = React.createClass({
+  displayName: 'VehiclesBase',
+
+
+  getInitialState: function () {
+    return { vehicles: [] };
+  },
+
+  componentWillMount: function () {
+    // call to SWAPI
+    $.ajax({
+      url: 'http://swapi.co/api/vehicles/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to vehicles array recieved from SWAPI
+        this.setState({ vehicles: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  render: function () {
+
+    // map vehicles array to get name and URL to link to individual pages
+    var createVehicleItem = this.state.vehicles.map(function (item, index) {
+
+      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+
+      return React.createElement(Vehicle, {
+        key: item.name + index,
+        id: newTextId,
+        name: item.name,
+        url: item.url,
+        model: item.model,
+        vehicle_class: item.vehicle_class,
+        'class': item.class,
+        manufacturer: item.manufacturer,
+        length: item.length,
+        cost_in_credits: item.cost_in_credits,
+        crew_size: item.crew,
+        passengers: item.passengers,
+        max_atmospheric_speed: item.max_atmospheric_speed,
+        cargo_capacity: item.cargo_capacity,
+        consumables: item.consumables,
+        films: item.films,
+        pilots: item.pilots
+      });
+    }.bind(this));
+
+    return React.createElement(
+      'div',
+      null,
+      createVehicleItem
+    );
+  }
+
+});
+
+module.exports = VehiclesBase;
+
+},{"./Vehicle.jsx":171,"react":157}],173:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[163]);
+},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[173]);
