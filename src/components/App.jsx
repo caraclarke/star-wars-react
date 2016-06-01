@@ -1,6 +1,11 @@
 var React = require('react');
 var NavItem = require('./Nav/NavItem.jsx');
+var FilmBase = require('./Films/FilmBase.jsx')
+var PeopleBase = require('./People/PeopleBase.jsx')
 var PlanetBase = require('./Planets/PlanetBase.jsx');
+var SpeciesBase = require('./Species/SpeciesBase.jsx')
+var StarshipBase = require('./Starships/StarshipBase.jsx')
+var VehicleBase = require('./Vehicles/VehicleBase.jsx')
 
 var App = React.createClass({
 
@@ -14,12 +19,27 @@ var App = React.createClass({
   // set state in basePage of alphId
   handleChildClick: function(event) {
 
+    $('.hideList').css('display', 'none');
     this.setState({ subjectFilter: subjectFilter });
 
     switch(subjectFilter) {
+      case 'Films':
+        $('#FilmsComp').removeClass('hidden');
+        break;
+      case 'People':
+        $('#PeopleComp').removeClass('hidden');
+        break;
       case 'Planets':
-        $('.hideList').css('display', 'none');
         $('#PlanetsComp').removeClass('hidden');
+        break;
+      case 'Species':
+        $('#SpeciesComp').removeClass('hidden');
+        break;
+      case 'Starships':
+        $('#StarshipsComp').removeClass('hidden');
+        break;
+      case 'Vehicles':
+        $('#VehiclesComp').removeClass('hidden');
         break;
     }
   },
@@ -73,8 +93,23 @@ var App = React.createClass({
             </div>
 
             <div className="subjects">
+              <div id="FilmsComp" className="hidden">
+                <FilmBase />
+              </div>
+              <div id="PeopleComp" className="hidden">
+                <PeopleBase />
+              </div>
               <div id="PlanetsComp" className="hidden">
                 <PlanetBase />
+              </div>
+              <div id="SpeciesComp" className="hidden">
+                <SpeciesBase />
+              </div>
+              <div id="StarshipsComp" className="hidden">
+                <StarshipBase />
+              </div>
+              <div id="VehicleComp" className="hidden">
+                <VehicleBase />
               </div>
             </div>
 
