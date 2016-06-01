@@ -16,10 +16,10 @@ var App = React.createClass({
     }
   },
 
-  // set state in basePage of alphId
   handleChildClick: function(event) {
 
     $('.hideList').css('display', 'none');
+    $('.basePage').addClass('hidden');
     this.setState({ subjectFilter: subjectFilter });
 
     switch(subjectFilter) {
@@ -93,22 +93,22 @@ var App = React.createClass({
             </div>
 
             <div className="subjects">
-              <div id="FilmsComp" className="hidden">
+              <div id="FilmsComp" className="hidden basePage">
                 <FilmBase />
               </div>
-              <div id="PeopleComp" className="hidden">
+              <div id="PeopleComp" className="hidden basePage">
                 <PeopleBase />
               </div>
-              <div id="PlanetsComp" className="hidden">
+              <div id="PlanetsComp" className="hidden basePage">
                 <PlanetBase />
               </div>
-              <div id="SpeciesComp" className="hidden">
+              <div id="SpeciesComp" className="hidden basePage">
                 <SpeciesBase />
               </div>
-              <div id="StarshipsComp" className="hidden">
+              <div id="StarshipsComp" className="hidden basePage">
                 <StarshipBase />
               </div>
-              <div id="VehiclesComp" className="hidden">
+              <div id="VehiclesComp" className="hidden basePage">
                 <VehicleBase />
               </div>
             </div>

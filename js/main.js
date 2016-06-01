@@ -19058,10 +19058,10 @@ var App = React.createClass({
     };
   },
 
-  // set state in basePage of alphId
   handleChildClick: function (event) {
 
     $('.hideList').css('display', 'none');
+    $('.basePage').addClass('hidden');
     this.setState({ subjectFilter: subjectFilter });
 
     switch (subjectFilter) {
@@ -19165,32 +19165,32 @@ var App = React.createClass({
             { className: 'subjects' },
             React.createElement(
               'div',
-              { id: 'FilmsComp', className: 'hidden' },
+              { id: 'FilmsComp', className: 'hidden basePage' },
               React.createElement(FilmBase, null)
             ),
             React.createElement(
               'div',
-              { id: 'PeopleComp', className: 'hidden' },
+              { id: 'PeopleComp', className: 'hidden basePage' },
               React.createElement(PeopleBase, null)
             ),
             React.createElement(
               'div',
-              { id: 'PlanetsComp', className: 'hidden' },
+              { id: 'PlanetsComp', className: 'hidden basePage' },
               React.createElement(PlanetBase, null)
             ),
             React.createElement(
               'div',
-              { id: 'SpeciesComp', className: 'hidden' },
+              { id: 'SpeciesComp', className: 'hidden basePage' },
               React.createElement(SpeciesBase, null)
             ),
             React.createElement(
               'div',
-              { id: 'StarshipsComp', className: 'hidden' },
+              { id: 'StarshipsComp', className: 'hidden basePage' },
               React.createElement(StarshipBase, null)
             ),
             React.createElement(
               'div',
-              { id: 'VehiclesComp', className: 'hidden' },
+              { id: 'VehiclesComp', className: 'hidden basePage' },
               React.createElement(VehicleBase, null)
             )
           )
