@@ -108,7 +108,7 @@ var App = React.createClass({
               <div id="StarshipsComp" className="hidden">
                 <StarshipBase />
               </div>
-              <div id="VehicleComp" className="hidden">
+              <div id="VehiclesComp" className="hidden">
                 <VehicleBase />
               </div>
             </div>
