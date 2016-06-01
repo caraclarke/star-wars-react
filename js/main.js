@@ -19221,109 +19221,121 @@ var Planet = React.createClass({
 
   render: function () {
 
+    var propsStyle = {
+      marginTop: 25
+    };
+
     return React.createElement(
       'div',
-      { className: 'col-md-4' },
+      { className: 'col-sm-12' },
       React.createElement(
-        'h3',
-        null,
-        this.props.name
-      ),
-      React.createElement(
-        'a',
-        { href: '#', onClick: this.onClick },
-        'Show Planet Details'
+        'div',
+        { className: 'col-md-4' },
+        React.createElement(
+          'h3',
+          null,
+          this.props.name
+        ),
+        React.createElement(
+          'a',
+          { href: '#', onClick: this.onClick },
+          'Show Planet Details'
+        )
       ),
       React.createElement(
         'div',
-        { id: this.props.id, className: 'hidden' },
+        { style: propsStyle, className: 'col-md-8' },
         React.createElement(
-          'p',
-          null,
+          'div',
+          { id: this.props.id, className: 'hidden' },
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Diameter:'
+            React.createElement(
+              'strong',
+              null,
+              'Diameter:'
+            ),
+            ' ',
+            this.props.diameter
           ),
-          ' ',
-          this.props.diameter
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Rotation Period:'
+            React.createElement(
+              'strong',
+              null,
+              'Rotation Period:'
+            ),
+            ' ',
+            this.props.rotation_period
           ),
-          ' ',
-          this.props.rotation_period
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Orbital Period:'
+            React.createElement(
+              'strong',
+              null,
+              'Orbital Period:'
+            ),
+            ' ',
+            this.props.orbital_period
           ),
-          ' ',
-          this.props.orbital_period
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Gravity:'
+            React.createElement(
+              'strong',
+              null,
+              'Gravity:'
+            ),
+            ' ',
+            this.props.gravity
           ),
-          ' ',
-          this.props.gravity
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Population:'
+            React.createElement(
+              'strong',
+              null,
+              'Population:'
+            ),
+            ' ',
+            this.props.population
           ),
-          ' ',
-          this.props.population
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Climate:'
+            React.createElement(
+              'strong',
+              null,
+              'Climate:'
+            ),
+            ' ',
+            this.props.climate
           ),
-          ' ',
-          this.props.climate
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Terrain:'
+            React.createElement(
+              'strong',
+              null,
+              'Terrain:'
+            ),
+            ' ',
+            this.props.terrain
           ),
-          ' ',
-          this.props.terrain
-        ),
-        React.createElement(
-          'p',
-          null,
           React.createElement(
-            'strong',
+            'p',
             null,
-            'Surface Water:'
-          ),
-          ' ',
-          this.props.surface_water
+            React.createElement(
+              'strong',
+              null,
+              'Surface Water:'
+            ),
+            ' ',
+            this.props.surface_water
+          )
         )
       )
     );
