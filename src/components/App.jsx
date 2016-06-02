@@ -156,9 +156,32 @@ var App = React.createClass({
 
   render: function() {
 
+    var navStyle = {
+      border: 0,
+      borderRadius: 0
+    };
+
+    var titleStyle = {
+      cursor: 'pointer'
+    };
+
+    var linkStyle = {
+      cursor: 'pointer'
+    }
+
+    // three if statements below changing nav background, link (navLink) and title colors
+    if (this.props.bgColor)
+      navStyle.background = this.props.bgColor;
+
+    if (this.props.titleColor)
+      titleStyle.color = this.props.titleColor;
+
+    if (this.props.linkColor)
+      linkStyle.color = this.props.linkColor;
+
     // map navLinks, return <NavItem /> to be rendered
     var createLinkItem = this.state.navLinks.map(function(item, subjectFilter, index) {
-      return <NavItem onValueChange={this.handleChildClick} key={item + index} id={item} title={item} />
+      return <NavItem onValueChange={this.handleChildClick} aStyle={linkStyle} key={item + index} id={item} title={item} />
     }.bind(this));
 
     // use same navLinks array, return <HomePageItem /> to be rendered
@@ -298,14 +321,14 @@ var App = React.createClass({
 
     return (
       <div>
-        <nav className="navbar navbar-default navbar-fixed-top">
+        <nav style={navStyle} className="navbar navbar-default navbar-fixed-top">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse">
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" onClick={this.resetAllTerms}>Star Wars Connections</a>
+            <a style={titleStyle} className="navbar-brand" onClick={this.resetAllTerms}>Star Wars Connections</a>
           </div>
           <div className="collapse navbar-collapse" id="nav-collapse">
             <ul className="nav navbar-nav">{createLinkItem}</ul>

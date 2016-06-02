@@ -19197,9 +19197,29 @@ var App = React.createClass({
 
   render: function () {
 
+    var navStyle = {
+      border: 0,
+      borderRadius: 0
+    };
+
+    var titleStyle = {
+      cursor: 'pointer'
+    };
+
+    var linkStyle = {
+      cursor: 'pointer'
+    };
+
+    // three if statements below changing nav background, link (navLink) and title colors
+    if (this.props.bgColor) navStyle.background = this.props.bgColor;
+
+    if (this.props.titleColor) titleStyle.color = this.props.titleColor;
+
+    if (this.props.linkColor) linkStyle.color = this.props.linkColor;
+
     // map navLinks, return <NavItem /> to be rendered
     var createLinkItem = this.state.navLinks.map(function (item, subjectFilter, index) {
-      return React.createElement(NavItem, { onValueChange: this.handleChildClick, key: item + index, id: item, title: item });
+      return React.createElement(NavItem, { onValueChange: this.handleChildClick, aStyle: linkStyle, key: item + index, id: item, title: item });
     }.bind(this));
 
     // use same navLinks array, return <HomePageItem /> to be rendered
@@ -19342,7 +19362,7 @@ var App = React.createClass({
       null,
       React.createElement(
         'nav',
-        { className: 'navbar navbar-default navbar-fixed-top' },
+        { style: navStyle, className: 'navbar navbar-default navbar-fixed-top' },
         React.createElement(
           'div',
           { className: 'navbar-header' },
@@ -19355,7 +19375,7 @@ var App = React.createClass({
           ),
           React.createElement(
             'a',
-            { className: 'navbar-brand', onClick: this.resetAllTerms },
+            { style: titleStyle, className: 'navbar-brand', onClick: this.resetAllTerms },
             'Star Wars Connections'
           )
         ),
@@ -20338,6 +20358,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 
-ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(App, { bgColor: '#263248', titleColor: '#7E8AA2', linkColor: '' }), document.getElementById('app'));
 
 },{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[168]);
