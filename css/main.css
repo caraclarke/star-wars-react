@@ -74,53 +74,16 @@ body {
   }
 }
 
-.index-page h2 {
-  color: #FF9800;
-}
-
- .show-page h2 {
-   color: #FF9800;
- }
-
-.index-page a {
-  color: #7E8AA2;
-}
-
-.home-icon {
-  height: 250px;
-  width: auto;
-}
-
-.ship-icon {
-  width: 350px;
-  height: auto;
-  margin-top: 60px;
-}
-
+/* align h1 on homepage center */
 .container h1 {
   text-align: center;
-}
-
-h2 > strong {
-  color: #7E8AA2;
-}
-
-p > strong {
-  color: #7E8AA2;
 }
 
 .container {
   margin-top: 35px;
 }
 
-.hideProps {
-  display: none;
-}
-
-.hidden {
-  display: none;
-}
-
+/* styling for links on homepage */
 .homeItem h2 {
   margin-top: 50px;
   text-align: center;
@@ -136,6 +99,7 @@ p > strong {
   cursor: pointer;;
 }
 
+/* styling for links on component pages */
 .seeAlsoLink {
   color: orange;
 }
@@ -151,4 +115,18 @@ a.seeAlsoLink:focus {
 
 .compBlock {
   margin-bottom: 25px;
+}
+
+/* change color of titles before properties */
+h2 > strong {
+  color: #7E8AA2;
+}
+
+p > strong {
+  color: #7E8AA2;
+}
+
+/* class to add to anything that needs to be hidden/shown at specific times */
+.hidden {
+  display: none;
 }
