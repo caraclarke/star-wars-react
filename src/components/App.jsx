@@ -1,5 +1,6 @@
 var React = require('react');
 var NavItem = require('./Nav/NavItem.jsx');
+var HomePageItem = require('./Nav/HomePageItem.jsx');
 var Film = require('./Films/Film.jsx')
 var People = require('./People/People.jsx')
 var Planet = require('./Planets/Planet.jsx');
@@ -165,6 +166,11 @@ var App = React.createClass({
       return <NavItem onValueChange={this.handleChildClick} key={item + index} id={item} title={item} />
     }.bind(this));
 
+    // use same navLinks array, return <HomePageItem /> to be rendered
+    var createHomeItem = this.state.navLinks.map(function(item, subjectFilter, index) {
+      return <HomePageItem onValueChange={this.handleChildClick} key={item + index} id={item} title={item} />
+    }.bind(this));
+
     // map films array to get name and URL to link to individual pages
     var createFilmItem = this.state.films.map(function(item, index) {
       var newFilmId = item.title.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
@@ -312,13 +318,12 @@ var App = React.createClass({
         </nav>
 
         <div className="container">
-          <h1>Click on an icon to explore the Star Wars Universe</h1>
 
           <div className="col-sm-12">
-            <div className="col-md-4 col-sm-12 hideList">
-              <ul>
-                {createLinkItem}
-              </ul>
+            <div className="col-sm-12 hideList">
+              <h1>Click on a link to explore the Star Wars Universe!</h1>
+
+              {createHomeItem}
             </div>
 
             <div className="subjects">

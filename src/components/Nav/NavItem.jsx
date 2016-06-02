@@ -22,6 +22,7 @@ var NavItem = React.createClass({
   },
 
   render: function() {
+
     return (
       <li onClick={this.handleChange} className={this.state.hover ? "active" : ""} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
         <a style={this.props.aStyle} id={this.props.id}>{this.props.title}</a>

@@ -19040,6 +19040,7 @@ process.umask = function() { return 0; };
 },{}],159:[function(require,module,exports){
 var React = require('react');
 var NavItem = require('./Nav/NavItem.jsx');
+var HomePageItem = require('./Nav/HomePageItem.jsx');
 var Film = require('./Films/Film.jsx');
 var People = require('./People/People.jsx');
 var Planet = require('./Planets/Planet.jsx');
@@ -19204,6 +19205,11 @@ var App = React.createClass({
     // map navLinks, return <NavItem /> to be rendered
     var createLinkItem = this.state.navLinks.map(function (item, subjectFilter, index) {
       return React.createElement(NavItem, { onValueChange: this.handleChildClick, key: item + index, id: item, title: item });
+    }.bind(this));
+
+    // use same navLinks array, return <HomePageItem /> to be rendered
+    var createHomeItem = this.state.navLinks.map(function (item, subjectFilter, index) {
+      return React.createElement(HomePageItem, { onValueChange: this.handleChildClick, key: item + index, id: item, title: item });
     }.bind(this));
 
     // map films array to get name and URL to link to individual pages
@@ -19372,21 +19378,17 @@ var App = React.createClass({
         'div',
         { className: 'container' },
         React.createElement(
-          'h1',
-          null,
-          'Click on an icon to explore the Star Wars Universe'
-        ),
-        React.createElement(
           'div',
           { className: 'col-sm-12' },
           React.createElement(
             'div',
-            { className: 'col-md-4 col-sm-12 hideList' },
+            { className: 'col-sm-12 hideList' },
             React.createElement(
-              'ul',
+              'h1',
               null,
-              createLinkItem
-            )
+              'Click on a link to explore the Star Wars Universe!'
+            ),
+            createHomeItem
           ),
           React.createElement(
             'div',
@@ -19430,7 +19432,7 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./Films/Film.jsx":160,"./Nav/NavItem.jsx":161,"./People/People.jsx":162,"./Planets/Planet.jsx":163,"./Species/Species.jsx":164,"./Starships/Starship.jsx":165,"./Vehicles/Vehicle.jsx":166,"react":157}],160:[function(require,module,exports){
+},{"./Films/Film.jsx":160,"./Nav/HomePageItem.jsx":161,"./Nav/NavItem.jsx":162,"./People/People.jsx":163,"./Planets/Planet.jsx":164,"./Species/Species.jsx":165,"./Starships/Starship.jsx":166,"./Vehicles/Vehicle.jsx":167,"react":157}],160:[function(require,module,exports){
 var React = require('react');
 
 var Film = React.createClass({
@@ -19467,7 +19469,7 @@ var Film = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19544,6 +19546,38 @@ module.exports = Film;
 },{"react":157}],161:[function(require,module,exports){
 var React = require('react');
 
+var HomePageItem = React.createClass({
+  displayName: "HomePageItem",
+
+
+  // click handler to pass subjectFilter up to App to filter section
+  changePage: function (e) {
+    subjectFilter = this.props.id;
+    this.props.onValueChange(subjectFilter);
+  },
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { onClick: this.changePage, className: "col-md-4 col-xs-12 homeItem" },
+      React.createElement(
+        "h2",
+        null,
+        React.createElement(
+          "a",
+          { id: this.props.id },
+          this.props.title
+        )
+      )
+    );
+  }
+});
+
+module.exports = HomePageItem;
+
+},{"react":157}],162:[function(require,module,exports){
+var React = require('react');
+
 var NavItem = React.createClass({
   displayName: "NavItem",
 
@@ -19568,6 +19602,7 @@ var NavItem = React.createClass({
   },
 
   render: function () {
+
     return React.createElement(
       "li",
       { onClick: this.handleChange, className: this.state.hover ? "active" : "", onMouseOver: this.mouseOver, onMouseOut: this.mouseOut },
@@ -19582,7 +19617,7 @@ var NavItem = React.createClass({
 
 module.exports = NavItem;
 
-},{"react":157}],162:[function(require,module,exports){
+},{"react":157}],163:[function(require,module,exports){
 var React = require('react');
 
 var People = React.createClass({
@@ -19617,7 +19652,7 @@ var People = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19702,7 +19737,7 @@ var People = React.createClass({
 
 module.exports = People;
 
-},{"react":157}],163:[function(require,module,exports){
+},{"react":157}],164:[function(require,module,exports){
 var React = require('react');
 
 var Planet = React.createClass({
@@ -19737,7 +19772,7 @@ var Planet = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19844,7 +19879,7 @@ var Planet = React.createClass({
 
 module.exports = Planet;
 
-},{"react":157}],164:[function(require,module,exports){
+},{"react":157}],165:[function(require,module,exports){
 var React = require('react');
 
 var Species = React.createClass({
@@ -19879,7 +19914,7 @@ var Species = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19975,7 +20010,7 @@ var Species = React.createClass({
 
 module.exports = Species;
 
-},{"react":157}],165:[function(require,module,exports){
+},{"react":157}],166:[function(require,module,exports){
 var React = require('react');
 
 var Starship = React.createClass({
@@ -20010,7 +20045,7 @@ var Starship = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -20139,7 +20174,7 @@ var Starship = React.createClass({
 
 module.exports = Starship;
 
-},{"react":157}],166:[function(require,module,exports){
+},{"react":157}],167:[function(require,module,exports){
 var React = require('react');
 
 var Vehicle = React.createClass({
@@ -20174,7 +20209,7 @@ var Vehicle = React.createClass({
         ),
         React.createElement(
           'a',
-          { href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -20303,11 +20338,11 @@ var Vehicle = React.createClass({
 
 module.exports = Vehicle;
 
-},{"react":157}],167:[function(require,module,exports){
+},{"react":157}],168:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[167]);
+},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[168]);

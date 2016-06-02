@@ -21,7 +21,7 @@ var Species = React.createClass({
       <div className="col-sm-12">
         <div className="col-sm-6">
           <h3>{this.props.name}</h3>
-          <a href='#' onClick={this.onClick}>Show Details</a>
+          <a className="seeAlsoLink" href='#' onClick={this.onClick}>Show Details</a>
         </div>
 
         <div style={propsStyle} className="col-sm-6">
