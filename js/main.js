@@ -19040,12 +19040,12 @@ process.umask = function() { return 0; };
 },{}],159:[function(require,module,exports){
 var React = require('react');
 var NavItem = require('./Nav/NavItem.jsx');
-var FilmBase = require('./Films/FilmBase.jsx');
-var PeopleBase = require('./People/PeopleBase.jsx');
-var PlanetBase = require('./Planets/PlanetBase.jsx');
-var SpeciesBase = require('./Species/SpeciesBase.jsx');
-var StarshipBase = require('./Starships/StarshipBase.jsx');
-var VehicleBase = require('./Vehicles/VehicleBase.jsx');
+var Film = require('./Films/Film.jsx');
+var People = require('./People/People.jsx');
+var Planet = require('./Planets/Planet.jsx');
+var Species = require('./Species/Species.jsx');
+var Starship = require('./Starships/Starship.jsx');
+var Vehicle = require('./Vehicles/Vehicle.jsx');
 
 var App = React.createClass({
   displayName: 'App',
@@ -19054,8 +19054,106 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       subjectFilter: '',
-      navLinks: ['Films', 'People', 'Planets', 'Species', 'Starships', 'Vehicles']
+      navLinks: ['Films', 'People', 'Planets', 'Species', 'Starships', 'Vehicles'],
+      films: [],
+      people: [],
+      planets: [],
+      species: [],
+      starships: [],
+      vehicles: []
     };
+  },
+
+  componentWillMount: function () {
+    // film ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/films/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to films array recieved from SWAPI
+        this.setState({ films: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    // people ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/people/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to people array recieved from SWAPI
+        this.setState({ people: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    // planet ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/planets/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to planets array recieved from SWAPI
+        this.setState({ planets: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    // species ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/species/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to species array recieved from SWAPI
+        this.setState({ species: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    // starships ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/starships/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to starships array recieved from SWAPI
+        this.setState({ starships: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+
+    // vehicles ajax get
+    $.ajax({
+      url: 'http://swapi.co/api/vehicles/',
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        // set data to vehicles array recieved from SWAPI
+        this.setState({ vehicles: data.results });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.log('url: ', this.props.url);
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
 
   handleChildClick: function (event) {
@@ -19106,6 +19204,136 @@ var App = React.createClass({
     // map navLinks, return <NavItem /> to be rendered
     var createLinkItem = this.state.navLinks.map(function (item, subjectFilter, index) {
       return React.createElement(NavItem, { onValueChange: this.handleChildClick, key: item + index, id: item, title: item });
+    }.bind(this));
+
+    // map films array to get name and URL to link to individual pages
+    var createFilmItem = this.state.films.map(function (item, index) {
+      var newFilmId = item.title.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(Film, {
+        key: item.title + index,
+        id: newFilmId,
+        title: item.title,
+        url: item.url,
+        episode_id: item.episode_id,
+        opening_crawl: item.opening_crawl,
+        director: item.director,
+        producer: item.producer,
+        release_date: item.release_date,
+        species: item.species,
+        starships: item.starships,
+        vehicles: item.vehicles,
+        characters: item.characters,
+        planets: item.planets
+      });
+    }.bind(this));
+
+    // map people array to get name and URL to link to individual pages
+    var createPersonItem = this.state.people.map(function (item, index) {
+      var newPeopleId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(People, {
+        key: item.name + index,
+        id: newPeopleId,
+        name: item.name,
+        url: item.url,
+        birth_year: item.birth_year,
+        gender: item.gender,
+        eye_color: item.eye_color,
+        hair_color: item.hair_color,
+        height: item.height,
+        skin_color: item.skin_color,
+        homeworld: item.homeworld,
+        films: item.films,
+        species: item.species,
+        vehicles: item.vehicles
+      });
+    }.bind(this));
+
+    // map planets array to get name and URL to link to individual pages
+    var createPlanetItem = this.state.planets.map(function (item, index) {
+      var newPlanetId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(Planet, {
+        key: item.name + index,
+        id: newPlanetId,
+        name: item.name,
+        url: item.url,
+        diameter: item.diameter,
+        rotation_period: item.rotation_period,
+        orbital_period: item.orbital_period,
+        gravity: item.gravity,
+        population: item.population,
+        climate: item.climate,
+        terrain: item.terrain,
+        surface_water: item.surface_water
+      });
+    }.bind(this));
+
+    // map species array to get name and URL to link to individual pages
+    var createSpeciesItem = this.state.species.map(function (item, index) {
+      var newSpeciesId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(Species, {
+        key: item.name + index,
+        id: newSpeciesId,
+        name: item.name,
+        url: item.url,
+        classification: item.classification,
+        designation: item.designation,
+        average_height: item.average_height,
+        eye_colors: item.eye_colors,
+        hair_colors: item.hair_colors,
+        skin_colors: item.skin_colors,
+        language: item.language,
+        homeworld: item.homeworld,
+        people: item.people,
+        films: item.films
+      });
+    }.bind(this));
+
+    // map starships array to get name and URL to link to individual pages
+    var createStarshipItem = this.state.starships.map(function (item, index) {
+      var newStarshipId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(Starship, {
+        key: item.name + index,
+        id: newStarshipId,
+        name: item.name,
+        url: item.url,
+        model: item.model,
+        starship_class: item.starship_class,
+        cost_in_credits: item.cost_in_credits,
+        length: item.length,
+        crew: item.crew,
+        passengers: item.passengers,
+        max_atmosphering_speed: item.max_atmosphering_speed,
+        MGLT: item.MGLT,
+        cargo_capacity: item.cargo_capacity,
+        consumables: item.consumables,
+        films: item.films,
+        pilots: item.pilots,
+        hyperdrive_rating: item.hyperdrive_rating
+      });
+    }.bind(this));
+
+    // map vehicles array to get name and URL to link to individual pages
+    var createVehicleItem = this.state.vehicles.map(function (item, index) {
+      var newVehicleId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
+      return React.createElement(Vehicle, {
+        key: item.name + index,
+        id: newVehicleId,
+        name: item.name,
+        url: item.url,
+        model: item.model,
+        vehicle_class: item.vehicle_class,
+        'class': item.class,
+        manufacturer: item.manufacturer,
+        length: item.length,
+        cost_in_credits: item.cost_in_credits,
+        crew_size: item.crew,
+        passengers: item.passengers,
+        max_atmospheric_speed: item.max_atmospheric_speed,
+        cargo_capacity: item.cargo_capacity,
+        consumables: item.consumables,
+        films: item.films,
+        pilots: item.pilots
+      });
     }.bind(this));
 
     return React.createElement(
@@ -19166,32 +19394,32 @@ var App = React.createClass({
             React.createElement(
               'div',
               { id: 'FilmsComp', className: 'hidden basePage' },
-              React.createElement(FilmBase, null)
+              createFilmItem
             ),
             React.createElement(
               'div',
               { id: 'PeopleComp', className: 'hidden basePage' },
-              React.createElement(PeopleBase, null)
+              createPersonItem
             ),
             React.createElement(
               'div',
               { id: 'PlanetsComp', className: 'hidden basePage' },
-              React.createElement(PlanetBase, null)
+              createPlanetItem
             ),
             React.createElement(
               'div',
               { id: 'SpeciesComp', className: 'hidden basePage' },
-              React.createElement(SpeciesBase, null)
+              createSpeciesItem
             ),
             React.createElement(
               'div',
               { id: 'StarshipsComp', className: 'hidden basePage' },
-              React.createElement(StarshipBase, null)
+              createStarshipItem
             ),
             React.createElement(
               'div',
               { id: 'VehiclesComp', className: 'hidden basePage' },
-              React.createElement(VehicleBase, null)
+              createVehicleItem
             )
           )
         )
@@ -19202,7 +19430,7 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./Films/FilmBase.jsx":161,"./Nav/NavItem.jsx":162,"./People/PeopleBase.jsx":164,"./Planets/PlanetBase.jsx":166,"./Species/SpeciesBase.jsx":168,"./Starships/StarshipBase.jsx":170,"./Vehicles/VehicleBase.jsx":172,"react":157}],160:[function(require,module,exports){
+},{"./Films/Film.jsx":160,"./Nav/NavItem.jsx":161,"./People/People.jsx":162,"./Planets/Planet.jsx":163,"./Species/Species.jsx":164,"./Starships/Starship.jsx":165,"./Vehicles/Vehicle.jsx":166,"react":157}],160:[function(require,module,exports){
 var React = require('react');
 
 var Film = React.createClass({
@@ -19313,71 +19541,6 @@ module.exports = Film;
 
 },{"react":157}],161:[function(require,module,exports){
 var React = require('react');
-var Film = require('./Film.jsx');
-
-var FilmBase = React.createClass({
-  displayName: 'FilmBase',
-
-
-  getInitialState: function () {
-    return { films: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/films/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to films array recieved from SWAPI
-        this.setState({ films: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  render: function () {
-
-    // map films array to get name and URL to link to individual pages
-    var createFilmItem = this.state.films.map(function (item, index) {
-
-      var newTextId = item.title.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(Film, {
-        key: item.title + index,
-        id: newTextId,
-        title: item.title,
-        url: item.url,
-        episode_id: item.episode_id,
-        opening_crawl: item.opening_crawl,
-        director: item.director,
-        producer: item.producer,
-        release_date: item.release_date,
-        species: item.species,
-        starships: item.starships,
-        vehicles: item.vehicles,
-        characters: item.characters,
-        planets: item.planets
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createFilmItem
-    );
-  }
-
-});
-
-module.exports = FilmBase;
-
-},{"./Film.jsx":160,"react":157}],162:[function(require,module,exports){
-var React = require('react');
 
 var NavItem = React.createClass({
   displayName: "NavItem",
@@ -19417,7 +19580,7 @@ var NavItem = React.createClass({
 
 module.exports = NavItem;
 
-},{"react":157}],163:[function(require,module,exports){
+},{"react":157}],162:[function(require,module,exports){
 var React = require('react');
 
 var People = React.createClass({
@@ -19537,72 +19700,7 @@ var People = React.createClass({
 
 module.exports = People;
 
-},{"react":157}],164:[function(require,module,exports){
-var React = require('react');
-var People = require('./People.jsx');
-
-var PeopleBase = React.createClass({
-  displayName: 'PeopleBase',
-
-
-  getInitialState: function () {
-    return { people: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/people/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to people array recieved from SWAPI
-        this.setState({ people: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  render: function () {
-
-    // map people array to get name and URL to link to individual pages
-    var createPersonItem = this.state.people.map(function (item, index) {
-
-      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(People, {
-        key: item.name + index,
-        id: newTextId,
-        name: item.name,
-        url: item.url,
-        birth_year: item.birth_year,
-        gender: item.gender,
-        eye_color: item.eye_color,
-        hair_color: item.hair_color,
-        height: item.height,
-        skin_color: item.skin_color,
-        homeworld: item.homeworld,
-        films: item.films,
-        species: item.species,
-        vehicles: item.vehicles
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createPersonItem
-    );
-  }
-
-});
-
-module.exports = PeopleBase;
-
-},{"./People.jsx":163,"react":157}],165:[function(require,module,exports){
+},{"react":157}],163:[function(require,module,exports){
 var React = require('react');
 
 var Planet = React.createClass({
@@ -19744,70 +19842,7 @@ var Planet = React.createClass({
 
 module.exports = Planet;
 
-},{"react":157}],166:[function(require,module,exports){
-var React = require('react');
-var Planet = require('./Planet.jsx');
-
-var PlanetBase = React.createClass({
-  displayName: 'PlanetBase',
-
-
-  getInitialState: function () {
-    return { planets: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/planets/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to planets array recieved from SWAPI
-        this.setState({ planets: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  render: function () {
-
-    // map planets array to get name and URL to link to individual pages
-    var createPlanetItem = this.state.planets.map(function (item, index) {
-
-      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(Planet, {
-        key: item.name + index,
-        id: newTextId,
-        name: item.name,
-        url: item.url,
-        diameter: item.diameter,
-        rotation_period: item.rotation_period,
-        orbital_period: item.orbital_period,
-        gravity: item.gravity,
-        population: item.population,
-        climate: item.climate,
-        terrain: item.terrain,
-        surface_water: item.surface_water
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createPlanetItem
-    );
-  }
-
-});
-
-module.exports = PlanetBase;
-
-},{"./Planet.jsx":165,"react":157}],167:[function(require,module,exports){
+},{"react":157}],164:[function(require,module,exports){
 var React = require('react');
 
 var Species = React.createClass({
@@ -19938,77 +19973,7 @@ var Species = React.createClass({
 
 module.exports = Species;
 
-},{"react":157}],168:[function(require,module,exports){
-var React = require('react');
-var Species = require('./Species.jsx');
-
-var SpeciesBase = React.createClass({
-  displayName: 'SpeciesBase',
-
-
-  getInitialState: function () {
-    return { species: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/species/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to species array recieved from SWAPI
-        this.setState({ species: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
-  },
-
-  render: function () {
-
-    // map species array to get name and URL to link to individual pages
-    var createSpeciesItem = this.state.species.map(function (item, index) {
-
-      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(Species, {
-        key: item.name + index,
-        id: newTextId,
-        name: item.name,
-        url: item.url,
-        classification: item.classification,
-        designation: item.designation,
-        average_height: item.average_height,
-        eye_colors: item.eye_colors,
-        hair_colors: item.hair_colors,
-        skin_colors: item.skin_colors,
-        language: item.language,
-        homeworld: item.homeworld,
-        people: item.people,
-        films: item.films
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createSpeciesItem
-    );
-  }
-
-});
-
-module.exports = SpeciesBase;
-
-},{"./Species.jsx":167,"react":157}],169:[function(require,module,exports){
+},{"react":157}],165:[function(require,module,exports){
 var React = require('react');
 
 var Starship = React.createClass({
@@ -20172,80 +20137,7 @@ var Starship = React.createClass({
 
 module.exports = Starship;
 
-},{"react":157}],170:[function(require,module,exports){
-var React = require('react');
-var Starship = require('./Starship.jsx');
-
-var StarshipBase = React.createClass({
-  displayName: 'StarshipBase',
-
-
-  getInitialState: function () {
-    return { starships: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/starships/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to starships array recieved from SWAPI
-        this.setState({ starships: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
-  },
-
-  render: function () {
-
-    // map starships array to get name and URL to link to individual pages
-    var createStarshipItem = this.state.starships.map(function (item, index) {
-
-      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(Starship, {
-        key: item.name + index,
-        id: newTextId,
-        name: item.name,
-        url: item.url,
-        model: item.model,
-        starship_class: item.starship_class,
-        cost_in_credits: item.cost_in_credits,
-        length: item.length,
-        crew: item.crew,
-        passengers: item.passengers,
-        max_atmosphering_speed: item.max_atmosphering_speed,
-        MGLT: item.MGLT,
-        cargo_capacity: item.cargo_capacity,
-        consumables: item.consumables,
-        films: item.films,
-        pilots: item.pilots,
-        hyperdrive_rating: item.hyperdrive_rating
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createStarshipItem
-    );
-  }
-
-});
-
-module.exports = StarshipBase;
-
-},{"./Starship.jsx":169,"react":157}],171:[function(require,module,exports){
+},{"react":157}],166:[function(require,module,exports){
 var React = require('react');
 
 var Vehicle = React.createClass({
@@ -20409,79 +20301,11 @@ var Vehicle = React.createClass({
 
 module.exports = Vehicle;
 
-},{"react":157}],172:[function(require,module,exports){
-var React = require('react');
-var Vehicle = require('./Vehicle.jsx');
-
-var VehiclesBase = React.createClass({
-  displayName: 'VehiclesBase',
-
-
-  getInitialState: function () {
-    return { vehicles: [] };
-  },
-
-  componentWillMount: function () {
-    // call to SWAPI
-    $.ajax({
-      url: 'http://swapi.co/api/vehicles/',
-      dataType: 'json',
-      cache: false,
-      success: function (data) {
-        // set data to vehicles array recieved from SWAPI
-        this.setState({ vehicles: data.results });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log('url: ', this.props.url);
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  render: function () {
-
-    // map vehicles array to get name and URL to link to individual pages
-    var createVehicleItem = this.state.vehicles.map(function (item, index) {
-
-      var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
-
-      return React.createElement(Vehicle, {
-        key: item.name + index,
-        id: newTextId,
-        name: item.name,
-        url: item.url,
-        model: item.model,
-        vehicle_class: item.vehicle_class,
-        'class': item.class,
-        manufacturer: item.manufacturer,
-        length: item.length,
-        cost_in_credits: item.cost_in_credits,
-        crew_size: item.crew,
-        passengers: item.passengers,
-        max_atmospheric_speed: item.max_atmospheric_speed,
-        cargo_capacity: item.cargo_capacity,
-        consumables: item.consumables,
-        films: item.films,
-        pilots: item.pilots
-      });
-    }.bind(this));
-
-    return React.createElement(
-      'div',
-      null,
-      createVehicleItem
-    );
-  }
-
-});
-
-module.exports = VehiclesBase;
-
-},{"./Vehicle.jsx":171,"react":157}],173:[function(require,module,exports){
+},{"react":157}],167:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[173]);
+},{"./components/App.jsx":159,"react":157,"react-dom":1}]},{},[167]);
