@@ -118,6 +118,7 @@ var App = React.createClass({
 
   handleChildClick: function(event) {
 
+    $('.props').addClass('hidden');
     $('.hideList').css('display', 'none');
     $('.basePage').addClass('hidden');
     this.setState({ subjectFilter: subjectFilter });
@@ -142,12 +143,6 @@ var App = React.createClass({
         $('#VehiclesComp').removeClass('hidden');
         break;
     }
-  },
-
-  componentDidMount: function() {
-    $('html').click(function() {
-        $('.compProps').addClass('hidden');
-    });
   },
 
   // click Index title to get rid of subjectFilter and reset it to showing all options

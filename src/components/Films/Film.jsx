@@ -27,7 +27,7 @@ var Film = React.createClass({
         </div>
 
         <div className="col-sm-6" style={propsStyle}>
-          <div id={this.props.id} className="hidden">
+          <div id={this.props.id} className="hidden props">
             <p><strong>Episode Id:</strong> {this.props.episode_id}</p>
             <p><strong>Opening Crawl:</strong> {this.props.opening_crawl}</p>
             <p><strong>Director:</strong> {this.props.director}</p>

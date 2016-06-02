@@ -25,7 +25,7 @@ var Starship = React.createClass({
         </div>
 
         <div style={propsStyle} className="col-sm-6">
-          <div id={this.props.id} className="hidden">
+          <div id={this.props.id} className="hidden props">
             <p><strong>Model:</strong> {this.props.model}</p>
             <p><strong>Starship Class:</strong> {this.props.starship_class}</p>
             <p><strong>Cost in Credits:</strong> {this.props.cost_in_credits}</p>

@@ -25,7 +25,7 @@ var Species = React.createClass({
         </div>
 
         <div style={propsStyle} className="col-sm-6">
-          <div id={this.props.id} className="hidden">
+          <div id={this.props.id} className="hidden props">
             <p><strong>Classification:</strong> {this.props.classification}</p>
             <p><strong>Designation:</strong> {this.props.designation}</p>
             <p><strong>Average Height::</strong> {this.props.average_height}</p>

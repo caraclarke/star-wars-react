@@ -25,7 +25,7 @@ var Vehicle = React.createClass({
         </div>
 
         <div style={propsStyle} className="col-sm-6">
-          <div id={this.props.id} className="hidden">
+          <div id={this.props.id} className="hidden props">
             <p><strong>Model:</strong> {this.props.model}</p>
             <p><strong>Vehicle Class:</strong> {this.props.vehicle_class}</p>
             <p><strong>Manufacturer:</strong> {this.props.manufacturer}</p>

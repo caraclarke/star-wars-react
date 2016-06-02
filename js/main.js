@@ -19159,6 +19159,7 @@ var App = React.createClass({
 
   handleChildClick: function (event) {
 
+    $('.props').addClass('hidden');
     $('.hideList').css('display', 'none');
     $('.basePage').addClass('hidden');
     this.setState({ subjectFilter: subjectFilter });
@@ -19183,12 +19184,6 @@ var App = React.createClass({
         $('#VehiclesComp').removeClass('hidden');
         break;
     }
-  },
-
-  componentDidMount: function () {
-    $('html').click(function () {
-      $('.compProps').addClass('hidden');
-    });
   },
 
   // click Index title to get rid of subjectFilter and reset it to showing all options
@@ -19478,7 +19473,7 @@ var Film = React.createClass({
         { className: 'col-sm-6', style: propsStyle },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
@@ -19661,7 +19656,7 @@ var People = React.createClass({
         { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
@@ -19781,7 +19776,7 @@ var Planet = React.createClass({
         { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
@@ -19923,7 +19918,7 @@ var Species = React.createClass({
         { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
@@ -20054,7 +20049,7 @@ var Starship = React.createClass({
         { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
@@ -20218,7 +20213,7 @@ var Vehicle = React.createClass({
         { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
-          { id: this.props.id, className: 'hidden' },
+          { id: this.props.id, className: 'hidden props' },
           React.createElement(
             'p',
             null,
