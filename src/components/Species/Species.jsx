@@ -28,7 +28,7 @@ var Species = React.createClass({
           <div id={this.props.id} className="hidden props">
             <p><strong>Classification:</strong> {this.props.classification}</p>
             <p><strong>Designation:</strong> {this.props.designation}</p>
-            <p><strong>Average Height::</strong> {this.props.average_height}</p>
+            <p><strong>Average Height:</strong> {this.props.average_height}</p>
             <p><strong>Eye Color(s):</strong> {this.props.eye_colors}</p>
             <p><strong>Hair Color(s):</strong> {this.props.hair_colors}</p>
             <p><strong>Skin Color(s):</strong> {this.props.skin_colors}</p>

@@ -26,8 +26,8 @@ var People = React.createClass({
 
         <div style={propsStyle} className="col-sm-6">
           <div id={this.props.id} className="hidden props">
-            <p><strong>Birth Year::</strong> {this.props.birth_year}</p>
-            <p><strong>Eye Color::</strong> {this.props.eye_color}</p>
+            <p><strong>Birth Year:</strong> {this.props.birth_year}</p>
+            <p><strong>Eye Color:</strong> {this.props.eye_color}</p>
             <p><strong>Gender:</strong> {this.props.gender}</p>
             <p><strong>Hair Color:</strong> {this.props.hair_color}</p>
             <p><strong>Height:</strong> {this.props.height}</p>

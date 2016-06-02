@@ -19683,7 +19683,7 @@ var People = React.createClass({
             React.createElement(
               'strong',
               null,
-              'Birth Year::'
+              'Birth Year:'
             ),
             ' ',
             this.props.birth_year
@@ -19694,7 +19694,7 @@ var People = React.createClass({
             React.createElement(
               'strong',
               null,
-              'Eye Color::'
+              'Eye Color:'
             ),
             ' ',
             this.props.eye_color
@@ -19967,7 +19967,7 @@ var Species = React.createClass({
             React.createElement(
               'strong',
               null,
-              'Average Height::'
+              'Average Height:'
             ),
             ' ',
             this.props.average_height
