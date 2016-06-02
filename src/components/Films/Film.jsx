@@ -20,13 +20,13 @@ var Film = React.createClass({
     };
 
     return (
-      <div className="col-sm-6">
-        <div className="col-md-4">
+      <div className="col-sm-12">
+        <div className="col-sm-6">
           <h3>{this.props.title}</h3>
           <a href='#' onClick={this.onClick}>Show Details</a>
         </div>
 
-        <div style={propsStyle} className="col-md-8">
+        <div className="col-sm-6" style={propsStyle}>
           <div id={this.props.id} className="hidden">
             <p><strong>Episode Id:</strong> {this.props.episode_id}</p>
             <p><strong>Opening Crawl:</strong> {this.props.opening_crawl}</p>

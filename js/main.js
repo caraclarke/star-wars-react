@@ -19456,10 +19456,10 @@ var Film = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -19473,7 +19473,7 @@ var Film = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { className: 'col-sm-6', style: propsStyle },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },
@@ -19606,10 +19606,10 @@ var People = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -19623,7 +19623,7 @@ var People = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },
@@ -19726,10 +19726,10 @@ var Planet = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -19743,7 +19743,7 @@ var Planet = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },
@@ -19868,10 +19868,10 @@ var Species = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -19885,7 +19885,7 @@ var Species = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },
@@ -19999,10 +19999,10 @@ var Starship = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -20016,7 +20016,7 @@ var Starship = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },
@@ -20163,10 +20163,10 @@ var Vehicle = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-6' },
+      { className: 'col-sm-12' },
       React.createElement(
         'div',
-        { className: 'col-md-4' },
+        { className: 'col-sm-6' },
         React.createElement(
           'h3',
           null,
@@ -20180,7 +20180,7 @@ var Vehicle = React.createClass({
       ),
       React.createElement(
         'div',
-        { style: propsStyle, className: 'col-md-8' },
+        { style: propsStyle, className: 'col-sm-6' },
         React.createElement(
           'div',
           { id: this.props.id, className: 'hidden' },

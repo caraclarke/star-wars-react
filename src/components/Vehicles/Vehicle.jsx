@@ -18,13 +18,13 @@ var Vehicle = React.createClass({
     };
 
     return (
-      <div className="col-sm-6">
-        <div className="col-md-4">
+      <div className="col-sm-12">
+        <div className="col-sm-6">
           <h3>{this.props.name}</h3>
           <a href='#' onClick={this.onClick}>Show Details</a>
         </div>
 
-        <div style={propsStyle} className="col-md-8">
+        <div style={propsStyle} className="col-sm-6">
           <div id={this.props.id} className="hidden">
             <p><strong>Model:</strong> {this.props.model}</p>
             <p><strong>Vehicle Class:</strong> {this.props.vehicle_class}</p>
