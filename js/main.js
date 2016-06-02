@@ -19453,7 +19453,7 @@ var Film = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },
@@ -19636,7 +19636,7 @@ var People = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },
@@ -19756,7 +19756,7 @@ var Planet = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },
@@ -19898,7 +19898,7 @@ var Species = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },
@@ -20029,7 +20029,7 @@ var Starship = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },
@@ -20193,7 +20193,7 @@ var Vehicle = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'col-sm-12' },
+      { className: 'col-sm-12 compBlock' },
       React.createElement(
         'div',
         { className: 'col-sm-6' },

@@ -18,7 +18,7 @@ var People = React.createClass({
     };
 
     return (
-      <div className="col-sm-12">
+      <div className="col-sm-12 compBlock">
         <div className="col-sm-6">
           <h3>{this.props.name}</h3>
           <a className="seeAlsoLink" onClick={this.onClick}>Show Details</a>

@@ -77,3 +77,7 @@ a.seeAlsoLink:hover {
 a.seeAlsoLink:focus {
   color: orange;
 }
+
+.compBlock {
+  margin-bottom: 25px;
+}
