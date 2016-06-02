@@ -5,10 +5,12 @@ var Film = React.createClass({
   onClick: function(event) {
     event.stopPropagation();
 
+    var itemId = '#' + this.props.id;
+
     // toggle hidden class
     // responsible for showing/hiding extra information on planets
     // hidden is in main_style.css sheet in public folder
-    $('#' + this.props.id).toggleClass('hidden');
+    $(itemId).toggleClass('hidden');
   },
 
   render: function() {
@@ -25,7 +27,7 @@ var Film = React.createClass({
         </div>
 
         <div style={propsStyle} className="col-md-8">
-          <div id={this.props.id} className="hidden compProps">
+          <div id={this.props.id} className="hidden">
             <p><strong>Episode Id:</strong> {this.props.episode_id}</p>
             <p><strong>Opening Crawl:</strong> {this.props.opening_crawl}</p>
             <p><strong>Director:</strong> {this.props.director}</p>

@@ -25,7 +25,7 @@ var Planet = React.createClass({
         </div>
 
         <div style={propsStyle} className="col-md-8">
-          <div id={this.props.id} className="hidden compProps">
+          <div id={this.props.id} className="hidden">
             <p><strong>Diameter:</strong> {this.props.diameter}</p>
             <p><strong>Rotation Period:</strong> {this.props.rotation_period}</p>
             <p><strong>Orbital Period:</strong> {this.props.orbital_period}</p>
