@@ -1,3 +1,43 @@
+body {
+  background-color: #263248;
+  color: #fff;
+}
+
+.index-page h2 {
+  color: #FF9800;
+}
+
+ .show-page h2 {
+   color: #FF9800;
+ }
+
+.index-page a {
+  color: #7E8AA2;
+}
+
+.home-icon {
+  height: 250px;
+  width: auto;
+}
+
+.ship-icon {
+  width: 350px;
+  height: auto;
+  margin-top: 60px;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+h2 > strong {
+  color: #7E8AA2;
+}
+
+p > strong {
+  color: #7E8AA2;
+}
+
 .container {
   margin-top: 35px;
 }
@@ -8,4 +48,28 @@
 
 .hidden {
   display: none;
+}
+
+.homeItem h2 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.homeItem h2 > a {
+  color: orange;
+}
+
+.homeItem h2 > a:hover {
+  text-decoration: none;
+  color: #7E8AA2;
+  cursor: pointer;;
+}
+
+.seeAlsoLink {
+  color: orange;
+}
+
+a.seeAlsoLink:hover {
+  color: orange;
+  cursor: pointer;;
 }
