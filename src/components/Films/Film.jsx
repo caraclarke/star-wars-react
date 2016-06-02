@@ -23,7 +23,7 @@ var Film = React.createClass({
       <div className="col-sm-12">
         <div className="col-sm-6">
           <h3>{this.props.title}</h3>
-          <a className="seeAlsoLink" href='#' onClick={this.onClick}>Show Details</a>
+          <a className="seeAlsoLink" onClick={this.onClick}>Show Details</a>
         </div>
 
         <div className="col-sm-6" style={propsStyle}>

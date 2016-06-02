@@ -19334,7 +19334,7 @@ var App = React.createClass({
         cost_in_credits: item.cost_in_credits,
         crew_size: item.crew,
         passengers: item.passengers,
-        max_atmospheric_speed: item.max_atmospheric_speed,
+        max_atmosphering_speed: item.max_atmosphering_speed,
         cargo_capacity: item.cargo_capacity,
         consumables: item.consumables,
         films: item.films,
@@ -19469,7 +19469,7 @@ var Film = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19652,7 +19652,7 @@ var People = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19772,7 +19772,7 @@ var Planet = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -19914,7 +19914,7 @@ var Species = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -20045,7 +20045,7 @@ var Starship = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),
@@ -20209,7 +20209,7 @@ var Vehicle = React.createClass({
         ),
         React.createElement(
           'a',
-          { className: 'seeAlsoLink', href: '#', onClick: this.onClick },
+          { className: 'seeAlsoLink', onClick: this.onClick },
           'Show Details'
         )
       ),

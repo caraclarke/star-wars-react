@@ -71,5 +71,9 @@ p > strong {
 
 a.seeAlsoLink:hover {
   color: orange;
-  cursor: pointer;;
+  cursor: pointer;
+}
+
+a.seeAlsoLink:focus {
+  color: orange;
 }
