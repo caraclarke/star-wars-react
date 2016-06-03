@@ -36,6 +36,7 @@ var Vehicle = React.createClass({
             <p><strong>Max Atmosphering Speed:</strong> {this.props.max_atmosphering_speed}</p>
             <p><strong>Cargo Capacity:</strong> {this.props.cargo_capacity}</p>
             <p><strong>Consumables:</strong> {this.props.consumables}</p>
+            <p><strong>Movies:</strong> {this.props.films}</p>
           </div>
         </div>
       </div>
