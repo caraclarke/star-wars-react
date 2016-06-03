@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var NavItem = React.createClass({
 
@@ -15,17 +16,11 @@ var NavItem = React.createClass({
     this.setState({hover: false});
   },
 
-  // click handler to pass subjectFilter up to App to filter section
-  handleChange: function(e) {
-    subjectFilter = this.props.id;
-    this.props.onValueChange(subjectFilter)
-  },
-
   render: function() {
 
     return (
-      <li onClick={this.handleChange} className={this.state.hover ? "active" : ""} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
-        <a style={this.props.aStyle} id={this.props.id}>{this.props.title}</a>
+      <li className={this.state.hover ? "active" : ""} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+        <Link to={"/" + this.props.id} style={this.props.aStyle} id={this.props.id}>{this.props.title}</Link>
       </li>
     );
   }
