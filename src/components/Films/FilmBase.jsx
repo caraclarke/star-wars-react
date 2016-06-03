@@ -8,14 +8,32 @@ var FilmBase = React.createClass({
   },
 
   componentWillMount: function() {
+
+    // function to sort using specific property
+    // in this case will call using episode_id to order movies correctly
+    var dynamicSort = function(property) {
+      var sortOrder = 1;
+      if(property[0] === "-") {
+          sortOrder = -1;
+          property = property.substr(1);
+      }
+      return function (a,b) {
+          var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+          return result * sortOrder;
+      };
+    };
+
     // call to SWAPI
     $.ajax({
       url: 'http://swapi.co/api/films/',
       dataType: 'json',
       cache: false,
       success: function(data) {
-        // set data to films array recieved from SWAPI
-        this.setState({ films: data.results });
+
+        var ordered = data.results.sort(dynamicSort("episode_id"))
+
+        // set reordered data to films array recieved from SWAPI
+        this.setState({ films: ordered });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('url: ', this.props.url);
