@@ -25796,7 +25796,7 @@ var VehiclesBase = React.createClass({
         cost_in_credits: item.cost_in_credits,
         crew_size: item.crew,
         passengers: item.passengers,
-        max_atmospheric_speed: item.max_atmospheric_speed,
+        max_atmosphering_speed: item.max_atmosphering_speed,
         cargo_capacity: item.cargo_capacity,
         consumables: item.consumables,
         films: item.films,
