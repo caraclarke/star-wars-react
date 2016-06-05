@@ -17,7 +17,7 @@ var VehicleBase = require('./components/Vehicles/VehicleBase.jsx')
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
 ReactDOM.render(
-  <Router history={browserHistory}>
+  <Router>
     <Route path="/" component={App}>
       <IndexRoute component={HomePageItem}></IndexRoute>
       <Route path="/films" component={FilmBase}></Route>

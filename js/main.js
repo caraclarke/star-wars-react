@@ -25854,7 +25854,7 @@ var VehicleBase = require('./components/Vehicles/VehicleBase.jsx');
 
 ReactDOM.render(React.createElement(
   Router,
-  { history: browserHistory },
+  null,
   React.createElement(
     Route,
     { path: '/', component: App },
