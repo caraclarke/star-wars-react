@@ -18,7 +18,7 @@ var HomePageItem = React.createClass({
         </div>
 
         <div className="col-md-4 col-xs-12 homeItem">
-          <h2><Link to="/planets" id="planets">Planet</Link></h2>
+          <h2><Link to="/planets" id="planets">Planets</Link></h2>
         </div>
 
         <div className="col-md-4 col-xs-12 homeItem">

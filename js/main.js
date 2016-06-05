@@ -24687,7 +24687,7 @@ var HomePageItem = React.createClass({
           React.createElement(
             Link,
             { to: '/planets', id: 'planets' },
-            'Planet'
+            'Planets'
           )
         )
       ),
@@ -25839,6 +25839,7 @@ var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
+var browserHistory = require('react-router').browserHistory;
 var Link = require('react-router').Link;
 var IndexRoute = require('react-router').IndexRoute;
 var HomePageItem = require('./components/Nav/HomePageItem.jsx');
@@ -25853,7 +25854,7 @@ var VehicleBase = require('./components/Vehicles/VehicleBase.jsx');
 
 ReactDOM.render(React.createElement(
   Router,
-  null,
+  { history: browserHistory },
   React.createElement(
     Route,
     { path: '/', component: App },

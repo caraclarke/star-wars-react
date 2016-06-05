@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var App = require('./components/App.jsx');
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
+var browserHistory = require('react-router').browserHistory;
 var Link = require('react-router').Link;
 var IndexRoute = require('react-router').IndexRoute;
 var HomePageItem = require('./components/Nav/HomePageItem.jsx');
@@ -16,7 +17,7 @@ var VehicleBase = require('./components/Vehicles/VehicleBase.jsx')
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
 ReactDOM.render(
-  <Router>
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={HomePageItem}></IndexRoute>
       <Route path="/films" component={FilmBase}></Route>
