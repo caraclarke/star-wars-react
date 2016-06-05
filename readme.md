@@ -7,7 +7,7 @@ The project currently gets the information as a JSON object from the <a href="sw
 
 ####To view SWAPI documentation
 
-Go to <a href="http://swapi.co/documentation">swapi.co/documentation</a>
+Go to [swapi.co/documentation](http://swapi.co/documentation).
 
 SWAPI's documentation explains what attributes are available for each resources like people or films. By reading through this documentation I was able to plan how I wanted to design the site to display the information in an engaging way.
 
@@ -39,5 +39,5 @@ $ ruby -run -e httpd . -p5000
 ####Planned updates
 
 This project is ongoing, I have several next steps planned
-- Add a "Wookiee" version of the site as detailed <a href="http://swapi.co/documentation#wookiee">here</a> on the SWAPI website
+- Add a "Wookiee" version of the site as detailed [here](http://swapi.co/documentation#wookiee) on the SWAPI website
 - Several resources have connections, for example the Starships has an array of request URL's for its pilots information. Displaying those connections and potentially linking them are also planned next steps
