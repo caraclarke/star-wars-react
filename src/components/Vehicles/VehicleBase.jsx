@@ -15,7 +15,9 @@ var VehiclesBase = React.createClass({
       cache: false,
       success: function(data) {
         // set data to vehicles array recieved from SWAPI
+
         this.setState({ vehicles: data.results });
+
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('url: ', this.props.url);

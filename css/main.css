@@ -113,6 +113,21 @@ a.seeAlsoLink:focus {
   color: orange;
 }
 
+a.crossLink {
+  color: #fff;
+}
+
+a.crossLink:hover {
+  /*color: orange;*/
+  /*cursor: pointer;*/
+  text-decoration: none;
+}
+
+a.crossLink:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
 .compBlock {
   margin-bottom: 25px;
 }
@@ -129,4 +144,12 @@ p > strong {
 /* class to add to anything that needs to be hidden/shown at specific times */
 .hidden {
   display: none;
+}
+
+.commaList:after {
+  content: ', ';
+}
+
+.commaList:last-child:after {
+  content: '';
 }

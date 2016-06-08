@@ -25603,10 +25603,45 @@ module.exports = StarshipBase;
 
 },{"./Starship.jsx":231,"react":218}],233:[function(require,module,exports){
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Vehicle = React.createClass({
   displayName: 'Vehicle',
 
+
+  getInitialState: function () {
+    return {
+      movies: [],
+      pilots: []
+    };
+  },
+
+  componentWillMount: function () {
+
+    // get pilot names
+    for (var i = 0; i < this.props.pilots.length; i++) {
+      var url = this.props.pilots[i].toString();
+      $.get(url).done(function (data) {
+        this.state.pilots.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ pilots: this.state.pilots });
+      }.bind(this));
+    };
+
+    // get film titles
+    for (var i = 0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+      $.get(url).done(function (data) {
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+        this.setState({ movies: this.state.movies });
+      }.bind(this));
+    };
+  },
 
   onClick: function (event) {
     event.stopPropagation();
@@ -25622,6 +25657,32 @@ var Vehicle = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var createFilm = this.state.movies.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.movies.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.title + index },
+        item.title
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.title + index },
+        item.title
+      );
+    }, this);
+
+    var createPilots = this.state.pilots.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.pilots.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
 
     return React.createElement(
       'div',
@@ -25755,6 +25816,28 @@ var Vehicle = React.createClass({
             ),
             ' ',
             this.props.consumables
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Movies:'
+            ),
+            ' ',
+            createFilm
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Pilots:'
+            ),
+            ' ',
+            createPilots
           )
         )
       )
@@ -25765,7 +25848,7 @@ var Vehicle = React.createClass({
 
 module.exports = Vehicle;
 
-},{"react":218}],234:[function(require,module,exports){
+},{"react":218,"react-router":31}],234:[function(require,module,exports){
 var React = require('react');
 var Vehicle = require('./Vehicle.jsx');
 
@@ -25785,6 +25868,7 @@ var VehiclesBase = React.createClass({
       cache: false,
       success: function (data) {
         // set data to vehicles array recieved from SWAPI
+
         this.setState({ vehicles: data.results });
       }.bind(this),
       error: function (xhr, status, err) {
@@ -25849,6 +25933,8 @@ var PlanetBase = require('./components/Planets/PlanetBase.jsx');
 var SpeciesBase = require('./components/Species/SpeciesBase.jsx');
 var StarshipBase = require('./components/Starships/StarshipBase.jsx');
 var VehicleBase = require('./components/Vehicles/VehicleBase.jsx');
+var Vehicle = require('./components/Vehicles/Vehicle.jsx');
+var Film = require('./components/Films/Film.jsx');
 
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
@@ -25859,13 +25945,21 @@ ReactDOM.render(React.createElement(
     Route,
     { path: '/', component: App },
     React.createElement(IndexRoute, { component: HomePageItem }),
-    React.createElement(Route, { path: '/films', component: FilmBase }),
+    React.createElement(
+      Route,
+      { path: '/films', component: FilmBase },
+      React.createElement(Route, { path: '/films/:id', component: Film })
+    ),
     React.createElement(Route, { path: '/people', component: PeopleBase }),
     React.createElement(Route, { path: '/planets', component: PlanetBase }),
     React.createElement(Route, { path: '/species', component: SpeciesBase }),
     React.createElement(Route, { path: '/starships', component: StarshipBase }),
-    React.createElement(Route, { path: '/vehicles', component: VehicleBase })
+    React.createElement(
+      Route,
+      { path: '/vehicles', component: VehicleBase },
+      React.createElement(Route, { path: '/vehicles/:id', component: Vehicle })
+    )
   )
 ), document.getElementById('app'));
 
-},{"./components/App.jsx":220,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
+},{"./components/App.jsx":220,"./components/Films/Film.jsx":221,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/Vehicle.jsx":233,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
