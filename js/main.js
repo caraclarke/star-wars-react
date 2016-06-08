@@ -25590,6 +25590,25 @@ var Vehicle = React.createClass({
   displayName: 'Vehicle',
 
 
+  getInitialState: function () {
+    return { face: [] };
+  },
+
+  componentWillMount: function () {
+
+    for (var i = 0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+
+      $.get(url).done(function (data) {
+        this.state.face.push(data.title);
+
+        this.setState({ face: this.state.face });
+        // console.log(this.state.face)
+      }.bind(this));
+    }
+    // console.log(this.state.face);
+  },
+
   onClick: function (event) {
     event.stopPropagation();
 
@@ -25604,6 +25623,20 @@ var Vehicle = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var multiple = this.state.face.length >= 2;
+
+    var createFilm = this.state.face.map(function (item, index) {
+      return multiple ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item + index },
+        item
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item + index },
+        item
+      );
+    }, this);
 
     return React.createElement(
       'div',
@@ -25747,7 +25780,7 @@ var Vehicle = React.createClass({
               'Movies:'
             ),
             ' ',
-            this.props.films
+            createFilm
           )
         )
       )
@@ -25778,26 +25811,6 @@ var VehiclesBase = React.createClass({
       cache: false,
       success: function (data) {
         // set data to vehicles array recieved from SWAPI
-
-        data.results.map(function (item) {
-          item["movieTitle"] = [];
-          for (var i = 0; i < item.films.length; i++) {
-            var reqUrl = item.films[i].toString();
-            var remove = item.films.indexOf(reqUrl);
-            $.ajax({
-              url: reqUrl,
-              dataType: 'json',
-              cache: false,
-              success: function (data) {
-                item["movieTitle"].push(data.title);
-              }.bind(this),
-              error: function (xhr, status, err) {
-                console.log('url: ', this.props.url);
-                console.error(this.props.url, status, err.toString());
-              }.bind(this)
-            });
-          }
-        }); // end vehicles map
 
         this.setState({ vehicles: data.results });
       }.bind(this),
