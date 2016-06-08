@@ -23,11 +23,6 @@ var StarshipBase = React.createClass({
       }.bind(this)
     });
 
-    // var url = document.createElement('a');
-    // url.href = this.props.url;
-    // url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    // this.setState({ newPlanetUrl: url.pathname });
-
   },
 
   render: function() {

@@ -52,7 +52,6 @@ var Vehicle = React.createClass({
       marginTop: 25
     };
 
-
     var createFilm = this.state.movies.map(function(item, index) {
       // var newUrl = item.url.replace('http://swapi.co/api', '');
       return (

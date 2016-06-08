@@ -25303,11 +25303,6 @@ var SpeciesBase = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-
-    var url = document.createElement('a');
-    url.href = this.props.url;
-    url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    this.setState({ newPlanetUrl: url.pathname });
   },
 
   render: function () {
@@ -25619,11 +25614,6 @@ var StarshipBase = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-
-    // var url = document.createElement('a');
-    // url.href = this.props.url;
-    // url.pathname = url.pathname.replace(/(\/api\/)/, '');
-    // this.setState({ newPlanetUrl: url.pathname });
   },
 
   render: function () {
