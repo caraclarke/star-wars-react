@@ -47,6 +47,7 @@ var PeopleBase = React.createClass({
           films={item.films}
           species={item.species}
           vehicles={item.vehicles}
+          starships={item.starships}
         />
       }.bind(this));
 

@@ -24447,6 +24447,79 @@ var Film = React.createClass({
   displayName: 'Film',
 
 
+  getInitialState: function () {
+    return {
+      filmSpec: [],
+      starships: [],
+      vehicles: [],
+      characters: [],
+      planets: []
+    };
+  },
+
+  componentWillMount: function () {
+
+    // get species names
+    for (var i = 0; i < this.props.species.length; i++) {
+      var url = this.props.species[i].toString();
+      $.get(url).done(function (data) {
+        this.state.filmSpec.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ species: this.state.filmSpec });
+      }.bind(this));
+    };
+
+    // get starships names
+    for (var i = 0; i < this.props.starships.length; i++) {
+      var url = this.props.starships[i].toString();
+      $.get(url).done(function (data) {
+        this.state.starships.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ starships: this.state.starships });
+      }.bind(this));
+    };
+
+    // get vehicles names
+    for (var i = 0; i < this.props.vehicles.length; i++) {
+      var url = this.props.vehicles[i].toString();
+      $.get(url).done(function (data) {
+        this.state.vehicles.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ vehicles: this.state.vehicles });
+      }.bind(this));
+    };
+
+    // get characters names
+    for (var i = 0; i < this.props.characters.length; i++) {
+      var url = this.props.characters[i].toString();
+      $.get(url).done(function (data) {
+        this.state.characters.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ characters: this.state.characters });
+      }.bind(this));
+    };
+
+    // get planets names
+    for (var i = 0; i < this.props.planets.length; i++) {
+      var url = this.props.planets[i].toString();
+      $.get(url).done(function (data) {
+        this.state.planets.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ planets: this.state.planets });
+      }.bind(this));
+    };
+  },
+
   onClick: function (event) {
     event.stopPropagation();
 
@@ -24463,6 +24536,76 @@ var Film = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    // species
+    var createSpecies = this.state.filmSpec.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.filmSpec.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // starships
+    var createStarships = this.state.starships.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.starships.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // vehicles
+    var createVehicles = this.state.vehicles.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.vehicles.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // characters
+    var createCharacters = this.state.characters.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.characters.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // planets
+    var createPlanet = this.state.planets.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.planets.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
 
     return React.createElement(
       'div',
@@ -24504,17 +24647,6 @@ var Film = React.createClass({
             React.createElement(
               'strong',
               null,
-              'Opening Crawl:'
-            ),
-            ' ',
-            this.props.opening_crawl
-          ),
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'strong',
-              null,
               'Director:'
             ),
             ' ',
@@ -24541,6 +24673,72 @@ var Film = React.createClass({
             ),
             ' ',
             this.props.release_date
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Species:'
+            ),
+            ' ',
+            createSpecies
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Starships:'
+            ),
+            ' ',
+            createStarships
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Vehicles:'
+            ),
+            ' ',
+            createVehicles
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Characters:'
+            ),
+            ' ',
+            createCharacters
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Planets:'
+            ),
+            ' ',
+            createPlanet
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Opening Crawl:'
+            ),
+            ' ',
+            this.props.opening_crawl
           )
         )
       )
@@ -24780,6 +24978,66 @@ var People = React.createClass({
   displayName: 'People',
 
 
+  getInitialState: function () {
+    return {
+      species: [],
+      starships: [],
+      vehicles: [],
+      films: []
+    };
+  },
+
+  componentWillMount: function () {
+
+    // get species names
+    for (var i = 0; i < this.props.species.length; i++) {
+      var url = this.props.species[i].toString();
+      $.get(url).done(function (data) {
+        this.state.species.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ species: this.state.species });
+      }.bind(this));
+    };
+
+    // get starships names
+    for (var i = 0; i < this.props.starships.length; i++) {
+      var url = this.props.starships[i].toString();
+      $.get(url).done(function (data) {
+        this.state.starships.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ starships: this.state.starships });
+      }.bind(this));
+    };
+
+    // get vehicles names
+    for (var i = 0; i < this.props.vehicles.length; i++) {
+      var url = this.props.vehicles[i].toString();
+      $.get(url).done(function (data) {
+        this.state.vehicles.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ vehicles: this.state.vehicles });
+      }.bind(this));
+    };
+
+    // get films titles
+    for (var i = 0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+      $.get(url).done(function (data) {
+        this.state.films.push({
+          title: data.title,
+          url: url
+        });
+        this.setState({ films: this.state.films });
+      }.bind(this));
+    };
+  },
+
   onClick: function (event) {
     event.stopPropagation();
 
@@ -24794,6 +25052,62 @@ var People = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    // species
+    var createSpecies = this.state.species.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.species.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // starships
+    var createStarships = this.state.starships.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.starships.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // vehicles
+    var createVehicles = this.state.vehicles.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.vehicles.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
+
+    // films
+    var createFilms = this.state.films.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.films.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.title + index },
+        item.title
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.title + index },
+        item.title
+      );
+    }, this);
 
     return React.createElement(
       'div',
@@ -24883,6 +25197,50 @@ var People = React.createClass({
             ),
             ' ',
             this.props.skin_color
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Species:'
+            ),
+            ' ',
+            createSpecies
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Starships:'
+            ),
+            ' ',
+            createStarships
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Vehicles:'
+            ),
+            ' ',
+            createVehicles
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Films:'
+            ),
+            ' ',
+            createFilms
           )
         )
       )
@@ -24943,7 +25301,8 @@ var PeopleBase = React.createClass({
         homeworld: item.homeworld,
         films: item.films,
         species: item.species,
-        vehicles: item.vehicles
+        vehicles: item.vehicles,
+        starships: item.starships
       });
     }.bind(this));
 
