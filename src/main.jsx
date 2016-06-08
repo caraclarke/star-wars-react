@@ -13,6 +13,8 @@ var PlanetBase = require('./components/Planets/PlanetBase.jsx');
 var SpeciesBase = require('./components/Species/SpeciesBase.jsx')
 var StarshipBase = require('./components/Starships/StarshipBase.jsx')
 var VehicleBase = require('./components/Vehicles/VehicleBase.jsx')
+var Vehicle = require('./components/Vehicles/Vehicle.jsx');
+var Film = require('./components/Films/Film.jsx');
 
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
@@ -20,12 +22,16 @@ ReactDOM.render(
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={HomePageItem}></IndexRoute>
-      <Route path="/films" component={FilmBase}></Route>
+      <Route path="/films" component={FilmBase}>
+        <Route path="/films/:id" component={Film}></Route>
+      </Route>
       <Route path="/people" component={PeopleBase}></Route>
       <Route path="/planets" component={PlanetBase}></Route>
       <Route path="/species" component={SpeciesBase}></Route>
       <Route path="/starships" component={StarshipBase}></Route>
-      <Route path="/vehicles" component={VehicleBase}></Route>
+      <Route path="/vehicles" component={VehicleBase}>
+        <Route path="/vehicles/:id" component={Vehicle}></Route>
+      </Route>
     </Route>
   </Router>,
   document.getElementById('app')
