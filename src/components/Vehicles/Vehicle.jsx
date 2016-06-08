@@ -2,6 +2,25 @@ var React = require('react');
 
 var Vehicle = React.createClass({
 
+  getInitialState: function() {
+    return { face: [] }
+  },
+
+  componentWillMount: function() {
+
+    for (var i=0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+
+      $.get(url).done(function(data) {
+        this.state.face.push(data.title);
+
+        this.setState({ face: this.state.face });
+        // console.log(this.state.face)
+       }.bind(this));
+    }
+    // console.log(this.state.face);
+  },
+
   onClick: function(event) {
     event.stopPropagation();
 
@@ -16,6 +35,14 @@ var Vehicle = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var multiple = this.state.face.length >= 2;
+
+    var createFilm = this.state.face.map(function(item, index) {
+      return (
+        (multiple) ? <a className="commaList crossLink" key={item+index}>{item}</a> : <a className="crossLink" key={item+index}>{item}</a>
+      );
+    }, this);
 
     return (
       <div className="col-sm-12 compBlock">
@@ -36,7 +63,7 @@ var Vehicle = React.createClass({
             <p><strong>Max Atmosphering Speed:</strong> {this.props.max_atmosphering_speed}</p>
             <p><strong>Cargo Capacity:</strong> {this.props.cargo_capacity}</p>
             <p><strong>Consumables:</strong> {this.props.consumables}</p>
-            <p><strong>Movies:</strong> {this.props.films}</p>
+            <p><strong>Movies:</strong> {createFilm}</p>
           </div>
         </div>
       </div>

@@ -16,27 +16,8 @@ var VehiclesBase = React.createClass({
       success: function(data) {
         // set data to vehicles array recieved from SWAPI
 
-        data.results.map(function(item) {
-          item["movieTitle"] = [];
-          for (var i=0; i < item.films.length; i++) {
-            var reqUrl = item.films[i].toString();
-            var remove = item.films.indexOf(reqUrl);
-            $.ajax({
-              url: reqUrl,
-              dataType: 'json',
-              cache: false,
-              success: function(data) {
-                item["movieTitle"].push(data.title);
-              }.bind(this),
-              error: function(xhr, status, err) {
-                console.log('url: ', this.props.url);
-                console.error(this.props.url, status, err.toString());
-              }.bind(this)
-            });
-          }
-        }); // end vehicles map
-
         this.setState({ vehicles: data.results });
+
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('url: ', this.props.url);
