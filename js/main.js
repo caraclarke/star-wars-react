@@ -25596,17 +25596,16 @@ var Vehicle = React.createClass({
   },
 
   componentWillMount: function () {
+    console.log(this.props.pilots);
 
+    // get film titles
     for (var i = 0; i < this.props.films.length; i++) {
       var url = this.props.films[i].toString();
-
       $.get(url).done(function (data) {
-
         this.state.movies.push({
           title: data.title,
           url: url
         });
-
         this.setState({ movies: this.state.movies });
       }.bind(this));
     }
