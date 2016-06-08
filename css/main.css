@@ -118,12 +118,14 @@ a.crossLink {
 }
 
 a.crossLink:hover {
-  color: orange;
-  cursor: pointer;
+  /*color: orange;*/
+  /*cursor: pointer;*/
+  text-decoration: none;
 }
 
 a.crossLink:focus {
   color: #fff;
+  text-decoration: none;
 }
 
 .compBlock {

@@ -1,9 +1,10 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Vehicle = React.createClass({
 
   getInitialState: function() {
-    return { face: [] }
+    return { movies: [] }
   },
 
   componentWillMount: function() {
@@ -12,13 +13,16 @@ var Vehicle = React.createClass({
       var url = this.props.films[i].toString();
 
       $.get(url).done(function(data) {
-        this.state.face.push(data.title);
 
-        this.setState({ face: this.state.face });
-        // console.log(this.state.face)
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+
+        this.setState({ movies: this.state.movies });
+
        }.bind(this));
     }
-    // console.log(this.state.face);
   },
 
   onClick: function(event) {
@@ -36,11 +40,13 @@ var Vehicle = React.createClass({
       marginTop: 25
     };
 
-    var multiple = this.state.face.length >= 2;
+    var multiple = this.state.movies.length >= 2;
 
-    var createFilm = this.state.face.map(function(item, index) {
+    var createFilm = this.state.movies.map(function(item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+
       return (
-        (multiple) ? <a className="commaList crossLink" key={item+index}>{item}</a> : <a className="crossLink" key={item+index}>{item}</a>
+        (multiple) ? <a className="commaList crossLink" key={item.title+index}>{item.title}</a> : <a className="crossLink" key={item.title+index}>{item.title}</a>
       );
     }, this);
 

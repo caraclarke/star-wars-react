@@ -25585,13 +25585,14 @@ module.exports = StarshipBase;
 
 },{"./Starship.jsx":231,"react":218}],233:[function(require,module,exports){
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Vehicle = React.createClass({
   displayName: 'Vehicle',
 
 
   getInitialState: function () {
-    return { face: [] };
+    return { movies: [] };
   },
 
   componentWillMount: function () {
@@ -25600,13 +25601,15 @@ var Vehicle = React.createClass({
       var url = this.props.films[i].toString();
 
       $.get(url).done(function (data) {
-        this.state.face.push(data.title);
 
-        this.setState({ face: this.state.face });
-        // console.log(this.state.face)
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+
+        this.setState({ movies: this.state.movies });
       }.bind(this));
     }
-    // console.log(this.state.face);
   },
 
   onClick: function (event) {
@@ -25624,17 +25627,19 @@ var Vehicle = React.createClass({
       marginTop: 25
     };
 
-    var multiple = this.state.face.length >= 2;
+    var multiple = this.state.movies.length >= 2;
 
-    var createFilm = this.state.face.map(function (item, index) {
+    var createFilm = this.state.movies.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+
       return multiple ? React.createElement(
         'a',
-        { className: 'commaList crossLink', key: item + index },
-        item
+        { className: 'commaList crossLink', key: item.title + index },
+        item.title
       ) : React.createElement(
         'a',
-        { className: 'crossLink', key: item + index },
-        item
+        { className: 'crossLink', key: item.title + index },
+        item.title
       );
     }, this);
 
@@ -25791,7 +25796,7 @@ var Vehicle = React.createClass({
 
 module.exports = Vehicle;
 
-},{"react":218}],234:[function(require,module,exports){
+},{"react":218,"react-router":31}],234:[function(require,module,exports){
 var React = require('react');
 var Vehicle = require('./Vehicle.jsx');
 
@@ -25875,6 +25880,8 @@ var PlanetBase = require('./components/Planets/PlanetBase.jsx');
 var SpeciesBase = require('./components/Species/SpeciesBase.jsx');
 var StarshipBase = require('./components/Starships/StarshipBase.jsx');
 var VehicleBase = require('./components/Vehicles/VehicleBase.jsx');
+var Vehicle = require('./components/Vehicles/Vehicle.jsx');
+var Film = require('./components/Films/Film.jsx');
 
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
@@ -25885,13 +25892,21 @@ ReactDOM.render(React.createElement(
     Route,
     { path: '/', component: App },
     React.createElement(IndexRoute, { component: HomePageItem }),
-    React.createElement(Route, { path: '/films', component: FilmBase }),
+    React.createElement(
+      Route,
+      { path: '/films', component: FilmBase },
+      React.createElement(Route, { path: '/films/:id', component: Film })
+    ),
     React.createElement(Route, { path: '/people', component: PeopleBase }),
     React.createElement(Route, { path: '/planets', component: PlanetBase }),
     React.createElement(Route, { path: '/species', component: SpeciesBase }),
     React.createElement(Route, { path: '/starships', component: StarshipBase }),
-    React.createElement(Route, { path: '/vehicles', component: VehicleBase })
+    React.createElement(
+      Route,
+      { path: '/vehicles', component: VehicleBase },
+      React.createElement(Route, { path: '/vehicles/:id', component: Vehicle })
+    )
   )
 ), document.getElementById('app'));
 
-},{"./components/App.jsx":220,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
+},{"./components/App.jsx":220,"./components/Films/Film.jsx":221,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/Vehicle.jsx":233,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
