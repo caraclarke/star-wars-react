@@ -29,7 +29,7 @@ var PlanetBase = React.createClass({
 
     // map planets array to get name and URL to link to individual pages
       var createPlanetItem = this.state.planets.map(function(item, index) {
-
+        console.log(item);
         var newTextId = item.name.replace(/(\s\()/g, '').replace(/(\))/g, '').replace(/\W+/g, '').split(' ').join('').toLowerCase();
 
         return <Planet
@@ -45,6 +45,8 @@ var PlanetBase = React.createClass({
           climate={item.climate}
           terrain={item.terrain}
           surface_water={item.surface_water}
+          films={item.films}
+          residents={item.residents}
         />
       }.bind(this));
 
