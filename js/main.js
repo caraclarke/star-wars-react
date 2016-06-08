@@ -26530,8 +26530,6 @@ var PlanetBase = require('./components/Planets/PlanetBase.jsx');
 var SpeciesBase = require('./components/Species/SpeciesBase.jsx');
 var StarshipBase = require('./components/Starships/StarshipBase.jsx');
 var VehicleBase = require('./components/Vehicles/VehicleBase.jsx');
-var Vehicle = require('./components/Vehicles/Vehicle.jsx');
-var Film = require('./components/Films/Film.jsx');
 
 // <App bgColor="#263248" titleColor="#7E8AA2" linkColor="" />
 
@@ -26542,21 +26540,13 @@ ReactDOM.render(React.createElement(
     Route,
     { path: '/', component: App },
     React.createElement(IndexRoute, { component: HomePageItem }),
-    React.createElement(
-      Route,
-      { path: '/films', component: FilmBase },
-      React.createElement(Route, { path: '/films/:id', component: Film })
-    ),
+    React.createElement(Route, { path: '/films', component: FilmBase }),
     React.createElement(Route, { path: '/people', component: PeopleBase }),
     React.createElement(Route, { path: '/planets', component: PlanetBase }),
     React.createElement(Route, { path: '/species', component: SpeciesBase }),
     React.createElement(Route, { path: '/starships', component: StarshipBase }),
-    React.createElement(
-      Route,
-      { path: '/vehicles', component: VehicleBase },
-      React.createElement(Route, { path: '/vehicles/:id', component: Vehicle })
-    )
+    React.createElement(Route, { path: '/vehicles', component: VehicleBase })
   )
 ), document.getElementById('app'));
 
-},{"./components/App.jsx":220,"./components/Films/Film.jsx":221,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/Vehicle.jsx":233,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
+},{"./components/App.jsx":220,"./components/Films/FilmBase.jsx":222,"./components/Nav/HomePageItem.jsx":223,"./components/People/PeopleBase.jsx":226,"./components/Planets/PlanetBase.jsx":228,"./components/Species/SpeciesBase.jsx":230,"./components/Starships/StarshipBase.jsx":232,"./components/Vehicles/VehicleBase.jsx":234,"react":218,"react-dom":1,"react-router":31}]},{},[235]);
