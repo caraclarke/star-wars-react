@@ -25152,6 +25152,40 @@ var Species = React.createClass({
   displayName: 'Species',
 
 
+  getInitialState: function () {
+    return {
+      movies: [],
+      characters: []
+    };
+  },
+
+  componentWillMount: function () {
+
+    // get pilot names
+    for (var i = 0; i < this.props.people.length; i++) {
+      var url = this.props.people[i].toString();
+      $.get(url).done(function (data) {
+        this.state.characters.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ characters: this.state.characters });
+      }.bind(this));
+    };
+
+    // get film titles
+    for (var i = 0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+      $.get(url).done(function (data) {
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+        this.setState({ movies: this.state.movies });
+      }.bind(this));
+    };
+  },
+
   onClick: function (event) {
     event.stopPropagation();
 
@@ -25166,6 +25200,32 @@ var Species = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var createFilm = this.state.movies.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.movies.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.title + index },
+        item.title
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.title + index },
+        item.title
+      );
+    }, this);
+
+    var createCharacters = this.state.characters.map(function (item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return this.state.characters.length >= 2 ? React.createElement(
+        'a',
+        { className: 'commaList crossLink', key: item.name + index },
+        item.name
+      ) : React.createElement(
+        'a',
+        { className: 'crossLink', key: item.name + index },
+        item.name
+      );
+    }, this);
 
     return React.createElement(
       'div',
@@ -25266,6 +25326,28 @@ var Species = React.createClass({
             ),
             ' ',
             this.props.language
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Movies:'
+            ),
+            ' ',
+            createFilm
+          ),
+          React.createElement(
+            'p',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              'Characters:'
+            ),
+            ' ',
+            createCharacters
           )
         )
       )

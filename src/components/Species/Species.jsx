@@ -2,6 +2,40 @@ var React = require('react');
 
 var Species = React.createClass({
 
+  getInitialState: function() {
+    return {
+      movies: [],
+      characters: []
+    }
+  },
+
+  componentWillMount: function() {
+
+    // get pilot names
+    for (var i=0; i < this.props.people.length; i++) {
+      var url = this.props.people[i].toString();
+      $.get(url).done(function(data) {
+        this.state.characters.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ characters: this.state.characters });
+       }.bind(this));
+    };
+
+    // get film titles
+    for (var i=0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+      $.get(url).done(function(data) {
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+        this.setState({ movies: this.state.movies });
+       }.bind(this));
+    };
+  },
+
   onClick: function(event) {
     event.stopPropagation();
 
@@ -16,6 +50,20 @@ var Species = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var createFilm = this.state.movies.map(function(item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return (
+        this.state.movies.length >= 2 ? <a className="commaList crossLink" key={item.title+index}>{item.title}</a> : <a className="crossLink" key={item.title+index}>{item.title}</a>
+      );
+    }, this);
+
+    var createCharacters = this.state.characters.map(function(item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return (
+        this.state.characters.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
+      );
+    }, this);
 
     return (
       <div className="col-sm-12 compBlock">
@@ -33,6 +81,8 @@ var Species = React.createClass({
             <p><strong>Hair Color(s):</strong> {this.props.hair_colors}</p>
             <p><strong>Skin Color(s):</strong> {this.props.skin_colors}</p>
             <p><strong>Language:</strong> {this.props.language}</p>
+            <p><strong>Movies:</strong> {createFilm}</p>
+            <p><strong>Characters:</strong> {createCharacters}</p>
           </div>
         </div>
       </div>
