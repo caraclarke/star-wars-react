@@ -2,6 +2,40 @@ var React = require('react');
 
 var Starship = React.createClass({
 
+  getInitialState: function() {
+    return {
+      movies: [],
+      pilots: []
+    }
+  },
+
+  componentWillMount: function() {
+
+    // get pilot names
+    for (var i=0; i < this.props.pilots.length; i++) {
+      var url = this.props.pilots[i].toString();
+      $.get(url).done(function(data) {
+        this.state.pilots.push({
+          name: data.name,
+          url: url
+        });
+        this.setState({ pilots: this.state.pilots });
+       }.bind(this));
+    };
+
+    // get film titles
+    for (var i=0; i < this.props.films.length; i++) {
+      var url = this.props.films[i].toString();
+      $.get(url).done(function(data) {
+        this.state.movies.push({
+          title: data.title,
+          url: url
+        });
+        this.setState({ movies: this.state.movies });
+       }.bind(this));
+    };
+  },
+
   onClick: function(event) {
     event.stopPropagation();
 
@@ -16,6 +50,20 @@ var Starship = React.createClass({
     var propsStyle = {
       marginTop: 25
     };
+
+    var createFilm = this.state.movies.map(function(item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return (
+        this.state.movies.length >= 2 ? <a className="commaList crossLink" key={item.title+index}>{item.title}</a> : <a className="crossLink" key={item.title+index}>{item.title}</a>
+      );
+    }, this);
+
+    var createPilots = this.state.pilots.map(function(item, index) {
+      // var newUrl = item.url.replace('http://swapi.co/api', '');
+      return (
+        this.state.pilots.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
+      );
+    }, this);
 
     return (
       <div className="col-sm-12 compBlock">
@@ -36,6 +84,8 @@ var Starship = React.createClass({
             <p><strong>MGLT:</strong> {this.props.MGLT}</p>
             <p><strong>Cargo Capacity:</strong> {this.props.cargo_capacity}</p>
             <p><strong>Consumables:</strong> {this.props.consumables}</p>
+            <p><strong>Movies:</strong> {createFilm}</p>
+            <p><strong>Pilots:</strong> {createPilots}</p>
           </div>
         </div>
       </div>
