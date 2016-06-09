@@ -5,7 +5,7 @@ var Starship = React.createClass({
   getInitialState: function() {
     return {
       movies: [],
-      pilots: []
+      pilotsSt: []
     }
   },
 
@@ -15,11 +15,11 @@ var Starship = React.createClass({
     for (var i=0; i < this.props.pilots.length; i++) {
       var url = this.props.pilots[i].toString();
       $.get(url).done(function(data) {
-        this.state.pilots.push({
+        this.state.pilotsSt.push({
           name: data.name,
           url: url
         });
-        this.setState({ pilots: this.state.pilots });
+        this.setState({ pilotsSt: this.state.pilotsSt });
        }.bind(this));
     };
 
@@ -58,10 +58,10 @@ var Starship = React.createClass({
       );
     }, this);
 
-    var createPilots = this.state.pilots.map(function(item, index) {
+    var createPilots = this.state.pilotsSt.map(function(item, index) {
       // var newUrl = item.url.replace('http://swapi.co/api', '');
       return (
-        this.state.pilots.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
+        this.state.pilotsSt.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
       );
     }, this);
 

@@ -5,7 +5,7 @@ var Planet = React.createClass({
   getInitialState: function() {
     return {
       movies: [],
-      residents: []
+      residentsPl: []
     }
   },
 
@@ -15,11 +15,11 @@ var Planet = React.createClass({
     for (var i=0; i < this.props.residents.length; i++) {
       var url = this.props.residents[i].toString();
       $.get(url).done(function(data) {
-        this.state.residents.push({
+        this.state.residentsPl.push({
           name: data.name,
           url: url
         });
-        this.setState({ residents: this.state.residents });
+        this.setState({ residentsPl: this.state.residentsPl });
        }.bind(this));
     };
 
@@ -58,10 +58,10 @@ var Planet = React.createClass({
       );
     }, this);
 
-    var createResident = this.state.residents.map(function(item, index) {
+    var createResident = this.state.residentsPl.map(function(item, index) {
       // var newUrl = item.url.replace('http://swapi.co/api', '');
       return (
-        this.state.residents.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
+        this.state.residentsPl.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
       );
     }, this);
 
