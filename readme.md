@@ -40,4 +40,4 @@ $ ruby -run -e httpd . -p5000
 
 This project is ongoing, I have several next steps planned
 - Add a "Wookiee" version of the site as detailed [here](http://swapi.co/documentation#wookiee) on the SWAPI website
-- Several resources have connections, for example the Starships has an array of request URL's for its pilots information. Displaying those connections and potentially linking them are also planned next steps
+- Linking between different components such as linking from a pilots name on the vehicle component to their character page
