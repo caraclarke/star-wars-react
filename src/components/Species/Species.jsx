@@ -5,7 +5,7 @@ var Species = React.createClass({
   getInitialState: function() {
     return {
       movies: [],
-      characters: []
+      charactersSp: []
     }
   },
 
@@ -15,11 +15,11 @@ var Species = React.createClass({
     for (var i=0; i < this.props.people.length; i++) {
       var url = this.props.people[i].toString();
       $.get(url).done(function(data) {
-        this.state.characters.push({
+        this.state.charactersSp.push({
           name: data.name,
           url: url
         });
-        this.setState({ characters: this.state.characters });
+        this.setState({ charactersSp: this.state.charactersSp });
        }.bind(this));
     };
 
@@ -58,10 +58,10 @@ var Species = React.createClass({
       );
     }, this);
 
-    var createCharacters = this.state.characters.map(function(item, index) {
+    var createCharacters = this.state.charactersSp.map(function(item, index) {
       // var newUrl = item.url.replace('http://swapi.co/api', '');
       return (
-        this.state.characters.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
+        this.state.charactersSp.length >= 2 ? <a className="commaList crossLink" key={item.name+index}>{item.name}</a> : <a className="crossLink" key={item.name+index}>{item.name}</a>
       );
     }, this);
 
