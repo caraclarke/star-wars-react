@@ -26542,20 +26542,12 @@ ReactDOM.render(React.createElement(
     Route,
     { path: '/', component: App },
     React.createElement(IndexRoute, { component: HomePageItem }),
-    React.createElement(
-      Route,
-      { path: '/films', component: FilmBase },
-      React.createElement(Route, { path: '/films/:id', component: Film })
-    ),
+    React.createElement(Route, { path: '/films', component: FilmBase }),
     React.createElement(Route, { path: '/people', component: PeopleBase }),
     React.createElement(Route, { path: '/planets', component: PlanetBase }),
     React.createElement(Route, { path: '/species', component: SpeciesBase }),
     React.createElement(Route, { path: '/starships', component: StarshipBase }),
-    React.createElement(
-      Route,
-      { path: '/vehicles', component: VehicleBase },
-      React.createElement(Route, { path: '/vehicles/:id', component: Vehicle })
-    )
+    React.createElement(Route, { path: '/vehicles', component: VehicleBase })
   )
 ), document.getElementById('app'));
 

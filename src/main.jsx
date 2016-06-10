@@ -22,16 +22,12 @@ ReactDOM.render(
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={HomePageItem}></IndexRoute>
-      <Route path="/films" component={FilmBase}>
-        <Route path="/films/:id" component={Film}></Route>
-      </Route>
+      <Route path="/films" component={FilmBase}></Route>
       <Route path="/people" component={PeopleBase}></Route>
       <Route path="/planets" component={PlanetBase}></Route>
       <Route path="/species" component={SpeciesBase}></Route>
       <Route path="/starships" component={StarshipBase}></Route>
-      <Route path="/vehicles" component={VehicleBase}>
-        <Route path="/vehicles/:id" component={Vehicle}></Route>
-      </Route>
+      <Route path="/vehicles" component={VehicleBase}></Route>
     </Route>
   </Router>,
   document.getElementById('app')
