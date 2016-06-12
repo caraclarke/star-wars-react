@@ -1,7 +1,7 @@
 # Star Wars Connections - React.js & SWAPI
 ---
 
-This Star Wars App is a website where users can explore different people, places, species, planets and more from the Star Wars universe. Initially the information is displayed as a title or name and when the 'Show Details' link is clicked, additional information is displayed.
+This Star Wars App is a website where visitors can explore different people, places, species, planets and more from the Star Wars universe. Initially the information is displayed as a title or name and when the 'Show Details' link is clicked, additional information is displayed.
 
 The project currently gets the information as a JSON object from the <a href="swapi.co">Star Wars API (SWAPI)</a>
 
@@ -39,5 +39,6 @@ $ ruby -run -e httpd . -p5000
 ####Planned updates
 
 This project is ongoing, I have several next steps planned
+- Integrate [Redux](http://redux.js.org/index.html)
 - Add a "Wookiee" version of the site as detailed [here](http://swapi.co/documentation#wookiee) on the SWAPI website
 - Linking between different components such as linking from a pilots name on the vehicle component to their character page
