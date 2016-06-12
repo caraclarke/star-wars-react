@@ -39,5 +39,6 @@ $ ruby -run -e httpd . -p5000
 ####Planned updates
 
 This project is ongoing, I have several next steps planned
+- Integrate [Redux](http://redux.js.org/index.html)
 - Add a "Wookiee" version of the site as detailed [here](http://swapi.co/documentation#wookiee) on the SWAPI website
 - Linking between different components such as linking from a pilots name on the vehicle component to their character page
