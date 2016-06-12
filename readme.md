@@ -1,7 +1,7 @@
 # Star Wars Connections - React.js & SWAPI
 ---
 
-This Star Wars App is a website where users can explore different people, places, species, planets and more from the Star Wars universe. Initially the information is displayed as a title or name and when the 'Show Details' link is clicked, additional information is displayed.
+This Star Wars App is a website where visitors can explore different people, places, species, planets and more from the Star Wars universe. Initially the information is displayed as a title or name and when the 'Show Details' link is clicked, additional information is displayed.
 
 The project currently gets the information as a JSON object from the <a href="swapi.co">Star Wars API (SWAPI)</a>
 
